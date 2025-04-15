@@ -5,8 +5,20 @@
       "PackagePath": "staticwebassets\\LearnFlow.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\LearnFlow\\wwwroot\\assets\\icons\\jake.png",
+      "PackagePath": "staticwebassets\\assets\\icons\\jake.png"
+    },
+    {
       "Id": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\LearnFlow\\wwwroot\\assets\\icons\\list.svg",
       "PackagePath": "staticwebassets\\assets\\icons\\list.svg"
+    },
+    {
+      "Id": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\LearnFlow\\wwwroot\\assets\\icons\\logoAzul.png",
+      "PackagePath": "staticwebassets\\assets\\icons\\logoAzul.png"
+    },
+    {
+      "Id": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\LearnFlow\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
     },
     {
       "Id": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\LearnFlow\\wwwroot\\css\\site.css",
