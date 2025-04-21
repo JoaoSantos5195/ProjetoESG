@@ -29,3 +29,37 @@ C:\Users\Aluno\Desktop\ProjetoESG\LearnFlow\obj\Debug\net8.0\refint\LearnFlow.dl
 C:\Users\Aluno\Desktop\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.pdb
 C:\Users\Aluno\Desktop\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.genruntimeconfig.cache
 C:\Users\Aluno\Desktop\ProjetoESG\LearnFlow\obj\Debug\net8.0\ref\LearnFlow.dll
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\appsettings.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\LearnFlow.staticwebassets.runtime.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\LearnFlow.staticwebassets.endpoints.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\LearnFlow.exe
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\LearnFlow.deps.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\LearnFlow.runtimeconfig.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\LearnFlow.dll
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\bin\Debug\net8.0\LearnFlow.pdb
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.AssemblyInfoInputs.cache
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.AssemblyInfo.cs
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.csproj.CoreCompileInputs.cache
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.RazorAssemblyInfo.cache
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.RazorAssemblyInfo.cs
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.sourcelink.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\scopedcss\bundle\LearnFlow.styles.css
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\scopedcss\projectbundle\LearnFlow.bundle.scp.css
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets\msbuild.LearnFlow.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets\msbuild.LearnFlow.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets\msbuild.build.LearnFlow.props
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.LearnFlow.props
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.LearnFlow.props
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.dll
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\refint\LearnFlow.dll
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.pdb
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\LearnFlow.genruntimeconfig.cache
+C:\Users\rnran\OneDrive\Área de Trabalho\ESG\ProjetoESG\LearnFlow\obj\Debug\net8.0\ref\LearnFlow.dll

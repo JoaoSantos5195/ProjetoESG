@@ -1,0 +1,19 @@
+.barra-pesquisa {
+    width: 560px;
+    background-color: rgb(215, 241, 247);
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 24px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    outline: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration:dotted;
+  }
+  
+  .barra-pesquisa:focus {
+    border-color: #4285f4;
+    box-shadow: 0 1px 8px rgba(66, 133, 244, 0.5);
+  }
+  

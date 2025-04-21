@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "m2/Jnm7hG5OnVGBuUX5G34N7WLqKlafztVWHG/GrvZYRwGxScMmanUWKM9spyp52aUfWLO4UEy1NcLkVPFLl3w==",
+  "dgSpecHash": "BqLVaIaqsN0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\LearnFlow\\LearnFlow.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\rnran\\OneDrive\\Área de Trabalho\\ESG\\ProjetoESG\\LearnFlow\\LearnFlow.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rnran\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.13\\microsoft.netcore.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\rnran\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.13\\microsoft.windowsdesktop.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\rnran\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.13\\microsoft.aspnetcore.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\rnran\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.13\\microsoft.netcore.app.host.win-x64.8.0.13.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,0 +1,48 @@
+.pera{
+    width: 700px;
+    height: 300px;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThskYeUuX0coaX-ifON_xii4xXay770AuLzg&s");
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+    margin: auto;
+}
+
+.foto{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background-image: url("https://i.pinimg.com/200x150/a7/5e/9e/a75e9e35a8ed1ccc1017db40438c60e9.jpg");
+    background-size: cover;
+    margin-top: 20%;
+    margin-left: 250px;
+    position: absolute;
+}
+
+.h1 {
+    text-align: center;
+}
+
+.pai{
+    display: flex;
+    width: 100%;
+    height: 400px;
+}
+
+.imagem,
+.texto{
+    width: 50%;
+    height: 100%;
+}
+
+.imagem{
+    background-image: url("https://universidadedatecnologia.com.br/wp-content/uploads/2017/12/Principais-linguagens-2.jpg");
+    background-size: cover;
+}
+
+.texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5px;
+}
