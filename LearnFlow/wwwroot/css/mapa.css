@@ -1,0 +1,20 @@
+.imgCapa{
+    align-items: center;
+}
+.tudo {
+    display: flex;
+    gap: 20px; /* Espaço entre as colunas */
+    align-items: flex-start;
+}
+
+.fases {
+    flex: 2; /* Ocupa mais espaço */
+    background-color: #f0f0f0; /* Só para visualização, pode tirar */
+    padding: 20px;
+}
+
+.descricaoFase {
+    flex: 1; /* Ocupa menos espaço */
+    background-color: #e0e0e0; /* Só para visualização, pode tirar */
+    padding: 20px;
+}
