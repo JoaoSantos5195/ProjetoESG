@@ -1,4 +1,9 @@
-.container{
+.containerLike{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.containerTodos{
     display: flex;
     justify-content: space-evenly;
 }
