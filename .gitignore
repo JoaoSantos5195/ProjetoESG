@@ -1,1 +1,69 @@
-bin/Debug/
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider / VS Code / Visual Studio settings
+.idea/
+.vscode/
+.vs/
+
+## Auto-generated files
+*.generated.cs
+Generated\
+
+## Build logs
+*.log
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+project.lock.json
+project.assets.json
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## dotCover
+*.dotCover
+
+## Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Reports
+coverage*.json
+coverage*.xml
+coverage*.info
+coverage*.lcov
+coverage/
+
+## Backup & temp files
+*.bak
+*.tmp
+*.temp
+
+## Others
+_ReSharper*/
+*.resharper
+*.cache
+*.dbmdl
+*.jfm
+*.sql
+*.mdf
+*.ldf
+*.v12.suo
+
+## Docker
+**/Dockerfile.*
+docker-compose.override.yml
