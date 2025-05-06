@@ -16,7 +16,12 @@ public class HomeController : Controller
     //VAI PARA HOME
     public IActionResult Index()
     {
-        return View();
+        //instanciando a home model
+        //criando o objeto
+        HomeModel home = new HomeModel();
+        home.Nome = "Usuário";
+        home.Email = "EmailUser";
+        return View(home);
     }
     
     //VAI PARA PÁGINA PRIVACY

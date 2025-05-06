@@ -1,4 +1,6 @@
-﻿<!-- TITULO DA JANELA -->
+﻿<!-- IMPORTANDO MODEL -->
+@model HomeModel
+<!-- TITULO DA JANELA -->
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,6 +8,7 @@
 <link rel="stylesheet" href="/css/home.css">
 <!-- TITULO -->
 <div class="text-center">
+    <h1 class="display-4">Olá @Model.Nome</h1>
     <h1 class="display-4">Bem-vindo ao <img src="/assets/icons/logoAzul.png" alt=""></h1>
     <h2 class="text-center">Mapas mais curtidos: </h2>
 <br>
