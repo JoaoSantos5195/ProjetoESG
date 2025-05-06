@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\ProjetoESG\\LearnFlow\\LearnFlow.csproj",
+      "projectUniqueName": "C:\\Users\\Aluno\\Desktop\\JotaPe\\ESG\\ProjetoESG\\LearnFlow\\LearnFlow.csproj",
       "projectName": "LearnFlow",
-      "projectPath": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\ProjetoESG\\LearnFlow\\LearnFlow.csproj",
+      "projectPath": "C:\\Users\\Aluno\\Desktop\\JotaPe\\ESG\\ProjetoESG\\LearnFlow\\LearnFlow.csproj",
       "packagesPath": "C:\\Users\\Aluno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aluno\\Desktop\\ProjetoESG\\ProjetoESG\\LearnFlow\\obj\\",
+      "outputPath": "C:\\Users\\Aluno\\Desktop\\JotaPe\\ESG\\ProjetoESG\\LearnFlow\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",

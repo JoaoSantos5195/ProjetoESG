@@ -1,17 +1,20 @@
-﻿@{
+﻿<!-- TITULO DA JANELA -->
+@{
     ViewData["Title"] = "Home Page";
 }
+<!-- LINK PARA O CSS -->
 <link rel="stylesheet" href="/css/home.css">
-
+<!-- TITULO -->
 <div class="text-center">
     <h1 class="display-4">Bem-vindo ao <img src="/assets/icons/logoAzul.png" alt=""></h1>
     <h2 class="text-center">Mapas mais curtidos: </h2>
 <br>
+<!-- AREA DOS MAPAS MAIS CURTIDOS-->
     <div class="containerLike">
         <div class="mapa1">
             <img src="/assets/icons/portugues.jpg" alt="" style="height:200px; width:200px;">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Mapa">Mapa1</a>
-
+            <!-- LINK PARA MAPA 1 -->
         </div>
         <div class="mapa2">
             <img src="/assets/icons/jake.png" alt=""style="height:200px; width:200px;">
@@ -26,6 +29,8 @@
         
     <h2 class="text-center">Todos os mapas: </h2>
 <br>
+
+<!-- AREA DE TODOS OS MAPAS-->
     <div class="containerTodos">
         <div class="mapa1">
             <img src="/assets/icons/jake.png" alt="" style="height:200px; width:200px;">
