@@ -33,6 +33,16 @@ public class HomeController : Controller
     public IActionResult Mapa(){
         return View();
     }
+//VAI PARA LOGIN
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    public IActionResult CriarConta()
+    {
+        return View();
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
