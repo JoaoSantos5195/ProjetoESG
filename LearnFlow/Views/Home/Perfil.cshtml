@@ -1,0 +1,18 @@
+@model CadastroModel;
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<body>
+
+    <div class="profile-header">
+        <img src="/assets/icons/fotoCapa.jpg" alt="foto de capa" id="fotoCapa" class="fotoCapa">
+        <img src="/assets/icons/usuario-de-perfil.png" alt="Foto de Perfil" id="fotoPerfil" class="fotoPerfil">
+    </div>
+
+    <div class="profile-info">
+        <h2 class="nome">@Model.Nome</h2>
+        <p class="email">@Model.Email:</p>
+        <p class="senha">@Model.Senha</p>
+        <hr>
+</body>

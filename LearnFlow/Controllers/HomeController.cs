@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using LearnFlow.Models;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace LearnFlow.Controllers;
 
@@ -31,6 +32,29 @@ public class HomeController : Controller
     }
     //VAI PARA MAPA
     public IActionResult Mapa(){
+        return View();
+    }
+//VAI PARA LOGIN
+    public IActionResult Login()
+    {
+        return View();
+    }
+    public IActionResult Perfil()
+    {
+        return View();
+    }
+//PÁGINA CADASTRO
+    [HttpGet]
+    public IActionResult Cadastro()
+    {
+        return View();
+    }
+    [HttpPost]
+    public IActionResult Cadastro(CadastroModel model)
+    {
+        string nome = model.Nome;
+        string email = model.Email;
+        string senha = model.Senha;
         return View();
     }
 
