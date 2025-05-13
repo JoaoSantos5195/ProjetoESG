@@ -1,6 +1,11 @@
-.imgCapa{
-    align-items: center;
+#imgCapa{
+    display: flex;
+    justify-content: center;
 }
+#tituloMapa{
+    padding: 5%;
+}
+
 .tudo {
     display: flex;
     gap: 20px; /* Espaço entre as colunas */
@@ -15,6 +20,41 @@
 
 .descricaoFase {
     flex: 1; /* Ocupa menos espaço */
-    background-color: #e0e0e0; /* Só para visualização, pode tirar */
+    background-color: #f0f0f0; /* Só para visualização, pode tirar */
     padding: 20px;
+}
+
+.faseMapa{
+    cursor: pointer;
+}
+
+dialog{
+    width: 60%;
+    height: 50%;
+    border-radius: 50px;
+}
+
+/* Estilo do botão Fechar */
+dialog button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+dialog #concluirFase {
+    background-color: #00ff66;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
