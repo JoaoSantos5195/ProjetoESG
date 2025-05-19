@@ -1,128 +1,121 @@
+/* Container de login */
 .login-container {
-  background: #fff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-  margin: auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: auto;
 }
 
+/* Título */
 .login-container h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #000000;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000;
 }
 
-.login-container input[type="text"],
-.login-container input[type="password"] {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+/* Formulário de login */
+.form-group {
+    margin-bottom: 15px;
 }
 
-.login-container input[type="text"]:focus,
-.login-container input[type="password"]:focus {
-  border-color: #26b7ec;
-  outline: none;
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
-.form {
-  margin: auto;
+/* Foco nos campos de entrada */
+.form-control:focus {
+    border-color: #26b7ec;
+    outline: none;
 }
 
-.login-container input[type="submit"] {
-  width: 100%;
-  padding: 12px;
-  background: #ffffff;
-  border: none;
-  border-radius: 4px;
-  color: rgb(0, 0, 0);
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  text-decoration: underline;
+/* Botão de login */
+#entrar {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
 }
 
-.login-container input[type="submit"]:hover {
-  background: #afacac;
+/* Hover do botão de login */
+#entrar:hover {
+    background: #0056b3;
 }
 
-.login-container p {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.login-container a {
-  text-decoration: none;
-  color: #26b7ec;
-  font-weight: bold;
-}
-
-.login-container a:hover {
-  color: #26b7ec;
-}
-
+/* Estilo dos botões de redes sociais */
 ._k_QMg {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  max-width: 400px;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 ._k_QMg button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  max-width: 100%;
-  min-width: 280px;
-  height: 50px;
-  padding: 0 16px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 280px;
+    height: 50px;
+    padding: 0 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
 }
 
-._k_QMg svg {
-  width: 24px;
-  height: 24px;
+/* Botões de redes sociais */
+._k_QMg .btn-light {
+    background-color: #fff;
+    border: 1px solid #ccc;
 }
 
-._k_QMg button:nth-child(1) {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  
+._k_QMg .btn-primary {
+    background-color: #1877f2;
+    color: #fff;
 }
 
-._k_QMg button:nth-child(1) :hover {
-  background: #e3dddd;}
-
-._k_QMg button:nth-child(2) {
-  background-color: #1877f2;
-  color: #fff;
+._k_QMg .btn-dark {
+    background-color: #24292e;
+    color: #fff;
 }
 
-._k_QMg button:nth-child(3) {
-  background-color: #24292e;
-  color: #fff;
-}
-
+/* Hover nos botões de redes sociais */
 ._k_QMg button:hover {
-  opacity: 0.9;
+    opacity: 0.9;
 }
 
-.github-button:hover {
-  background-color: #1b1f23;
+/* Link para criar conta */
+#criar {
+    margin-top: 15px;
+    font-size: 14px;
 }
 
+#criar a {
+    text-decoration: none;
+    color: #26b7ec;
+    font-weight: bold;
+}
+
+#criar a:hover {
+    color: #1e8eb5;
+}

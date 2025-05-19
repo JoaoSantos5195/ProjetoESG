@@ -26,7 +26,7 @@ public class HomeController : Controller
     }
     
     //VAI PARA PÁGINA PRIVACY
-    public IActionResult Privacy()
+    public IActionResult Sobre()
     {
         return View();
     }

@@ -30,8 +30,9 @@
 
 dialog{
     width: 60%;
-    height: 50%;
-    border-radius: 50px;
+    height: 70%;
+    border-radius: 40px;
+    padding: 40px;
 }
 
 /* Estilo do botão Fechar */
