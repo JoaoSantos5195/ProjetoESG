@@ -7,3 +7,10 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.containerLike p,
+.containerTodos p {
+    font-size: 1.5rem; /* ou maior, conforme preferir */
+    margin-top: 10px;
+    text-align: center;
+}
