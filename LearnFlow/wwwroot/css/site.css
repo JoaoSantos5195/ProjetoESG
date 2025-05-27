@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+  font-size: 18px;
 }
 
 @media (min-width: 768px) {
@@ -32,4 +32,12 @@ body {
 
 .navbar-nav .menu{
   margin-top: 18px;
+}
+.navbar {
+    background-color: #3689ff /* Azul claro */
+}
+
+.navbar .nav-link {
+    color: white !important; /* Força branco caso necessário */
+    font-size: 1.2rem;
 }

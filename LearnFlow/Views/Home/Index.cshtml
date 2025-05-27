@@ -4,28 +4,35 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
 <!-- LINK PARA O CSS -->
 <link rel="stylesheet" href="/css/home.css">
 <link href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap" rel="stylesheet">
 
 <!-- TITULO -->
 <div class="text-center">
-    <h1 class="display-4">Bem-vindo ao <span style="font-family: 'Shrikhand', cursive;">LearnFlow</span></h1>
-    <h2 class="text-center">Mapas mais curtidos: </h2>
+    <header>
+        <h1 class="display-4">Bem-vindo ao <span style="font-family: 'Shrikhand', cursive;">LearnFlow</span></h1>
+        <h2 class="text-center">Mapas mais curtidos: </h2>
+    </header>
 <br>
 <!-- AREA DOS MAPAS MAIS CURTIDOS-->
     <div class="containerLike">
         <div class="mapa1">
-            <img src="/assets/icons/portugues.jpg" alt="" style="height:300px; width:300px; border-radius: 40px;">
+            <img src="/assets/icons/portugues.jpg" alt="" >
             <p><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Mapa">Lingua Portuguesa</a></p>
             <!-- LINK PARA MAPA 1 -->
         </div>
         <div class="mapa2">
-            <img src="/assets/icons/calculo.jpg" alt=""style="height:300px; width:300px; border-radius: 40px;">
+            <img src="/assets/icons/calculo.jpg" alt="">
             <p>Introdução a cálculo</p>
         </div>
         <div class="mapa3">
-            <img src="/assets/icons/fisica.webp" alt="" style="height:300px; width:300px; border-radius: 40px;">
+            <img src="/assets/icons/fisica.webp" alt="" >
             <p>Física quântica é fácil</p>
         </div>
     </div>
@@ -37,16 +44,18 @@
 <!-- AREA DE TODOS OS MAPAS-->
     <div class="containerTodos">
         <div class="mapa1">
-            <img src="/assets/icons/jake.png" alt="" style="height:300px; width:300px; border-radius: 40px;">
-            <p>Lingua Portuguesa</p>
+            <img src="/assets/icons/java.png" alt="" >
+            <p>Aprenda Java</p>
         </div>
         <div class="mapa2">
-            <img src="/assets/icons/jake.png" alt=""style="height:300px; width:300px; border-radius: 40px;">
-            <p>Introdução a cálculo</p>
+            <img src="/assets/icons/sql.png" alt="">
+            <p>SQL é igual falar inglês</p>
         </div>
         <div class="mapa3">
-            <img src="/assets/icons/jake.png" alt="" style="height:300px; width:300px; border-radius: 40px;">
-            <p>Física quântica é fácil</p>
+            <img src="/assets/icons/csharp.png" alt="" >
+            <p>Criando sites com C#</p>
         
     </div>
+
 </div>
+    <button class="align-items">Mais Mapas</button>
