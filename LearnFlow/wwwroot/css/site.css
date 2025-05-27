@@ -1,5 +1,10 @@
 html {
   font-size: 18px;
+  background-color: #ecf6ff; /* Fundo azul claro */
+
+}
+body{
+  background-color: #ecf6ff; /* Fundo azul claro */
 }
 
 @media (min-width: 768px) {
@@ -41,3 +46,4 @@ body {
     color: white !important; /* Força branco caso necessário */
     font-size: 1.2rem;
 }
+

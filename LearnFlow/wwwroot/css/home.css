@@ -11,15 +11,34 @@
 
 .containerLike p,
 .containerTodos p {
-    font-size: 1.35rem; /* ou maior, conforme preferir */
+    font-size: 1.2rem; /* ou maior, conforme preferir */
     margin-top: 10px;
     text-align: center;
 }
 
-header h1{
-    padding: 30px;
-
+#TituloSlogan {
+    text-align: center; /* Centraliza o texto, se quiser */
+    margin: 40px 0; /* Ajuste de espaçamento */
 }
+
+.TituloSlogan h1 {
+    font-size: 2.5rem; /* Ajuste conforme desejar */
+    font-weight: bold;
+    color: #333; /* Cor escura legível */
+}
+
+.learnflow-highlight {
+    font-family: 'Shrikhand', cursive;
+    color: #3689ff;
+}
+
+.slogan-subtitle {
+    font-style: italic;
+    margin-top: 0;
+    font-size: 1.23rem; /* Ajuste conforme necessidade */
+    color: #555; /* Cinza médio */
+}
+
 
 img{
     height:250px; 
