@@ -60,7 +60,7 @@
         }
  
         .profile-menu a {
-            color: #2c7be5;
+            color: #3689ff;
             text-decoration: none;
             font-weight: 500;
             padding: 6px 12px;
@@ -95,7 +95,7 @@
         .btn-create {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #3689ff;
             color: white;
             border: none;
             border-radius: 6px;
@@ -112,7 +112,7 @@
  
         .map-title {
             font-size: 1.1rem;
-            color: #2c7be5;
+            color: #3689ff;
             margin-bottom: 5px;
         }
  
