@@ -1,0 +1,114 @@
+<!-- LINK PARA CSS DO MAPA -->
+<link rel="stylesheet" href="/css/mapa.css">
+
+<!-- CAPA DO MAPA -->
+
+<img class="imgCapa" src="" alt="Capa do mapa" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;">
+<input type="file" accept=".jpg">
+<h1 id="tituloMapa" class="text-center">Titulo do seu mapa</h1>
+
+<!-- CAMINHO DAS FASES -->
+<div class="tudo">
+    <div class="fases">
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px; cursor: pointer;" id="faseImagem">
+        <p id="faseTexto">1º Fase</p>
+
+        <dialog class="faseMapa" id="faseMapa">
+            <h4 class="text-center"></h4>
+            <p class="text-justify"></p>
+            <hr>
+            <h4>links</h4>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <button id="concluirFase" onclick="concluir()">Marcar como concluido</button>
+            <button id="fecharDialog">Fechar</button>
+        </dialog>
+
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
+        <p>2º Fase</p>
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
+        <p>3º Fase</p>        
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
+        <p>4º Fase</p>        
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
+        <p>5º Fase</p>        
+
+    </div>
+
+    <div class="descricaoFase">
+        <h3></h3>
+        <p></p>
+        <br>
+        <h3>Links</h3>
+        <ul>
+            <li>LINK</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<h2 id="comentarioTitulo" class="text-center">Comentários</h2>
+    
+
+<script>
+    // Referências dos elementos
+    const concluirFase = document.getElementById("concluirFase");
+    const faseImagem = document.getElementById("faseImagem");
+    const faseTexto = document.getElementById("faseTexto");
+    const faseMapa = document.getElementById("faseMapa");
+    const fecharDialog = document.getElementById("fecharDialog");
+    const idFase = document.getElementById("idFase");
+    // Seleciona todos os parágrafos da página
+    // Seleciona todos os parágrafos com a classe "faseTexto"
+    const paragrafos = document.querySelectorAll('.faseTexto');
+
+    paragrafos.forEach(p => {
+    const numeros = p.textContent.match(/\d+/g);
+    if (numeros) {
+        const temPar = numeros.some(num => parseInt(num) % 2 === 0);
+        if (temPar) {
+        p.style.marginRight = '40px';
+        }
+    }
+
+
+    // Função para abrir o popup
+    function abrirDialog() {
+        faseMapa.showModal();
+    }
+
+    // Função para fechar o dialog
+    function fecharPopup() {
+        faseMapa.close(); 
+    }
+    
+    window.addEventListener('click', (event) => {
+    if (event.target === faseMapa) {
+    faseMapa.close();
+    }
+    });
+
+
+    function concluir() {
+        if (faseImagem.src.includes("circuloFase.png")) {
+            faseImagem.src = "/assets/icons/circuloConcluido.png ";
+            faseImagem.style.borderRadius = "50%";         // Deixa a imagem arredondada (círculo perfeito)
+            faseImagem.style.boxShadow = "0 0 10px #4CAF50"; // Sombra verde suave
+            faseImagem.style.transition = "all 0.3s ease";  // Transição suave
+            faseImagem.style.width = "80px";
+            faseImagem.style.height="80px";
+        }
+        faseMapa.close(); 
+    }
+
+
+    // Adicionando os eventos de clique
+    faseImagem.addEventListener("click", abrirDialog); // Clique na imagem abre o dialog
+    faseTexto.addEventListener("click", abrirDialog); // Clique no texto "Fase 1" abre o dialog
+    fecharDialog.addEventListener("click", fecharPopup); // Botão de fechar dentro do dialog
+    concluirFase.addEventListener("click", concluir);
+</script>

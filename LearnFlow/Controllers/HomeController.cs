@@ -43,6 +43,11 @@ public class HomeController : Controller
     {
         return View();
     }
+
+    public IActionResult CriarMapa()
+    {
+        return View();
+    }
 //PÁGINA CADASTRO
     [HttpGet]
     public IActionResult Cadastro()
