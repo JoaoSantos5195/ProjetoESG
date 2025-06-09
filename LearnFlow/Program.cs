@@ -1,15 +1,15 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adiciona serviços MVC e sessão
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession(); // <-- DEVE vir antes do builder.Build()
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuração do pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -18,6 +18,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession(); // <-- Aqui é o lugar certo de usar a sessão no pipeline
 app.UseAuthorization();
 
 app.MapControllerRoute(

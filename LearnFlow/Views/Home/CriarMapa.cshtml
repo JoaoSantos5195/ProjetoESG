@@ -10,6 +10,8 @@
     <title>LearnFlow</title>
 </head>
 <body>
+@if (string.IsNullOrEmpty(Model.TituloMapa) && string.IsNullOrEmpty(Model.DescMapa))
+{
     <div>
         <form action="~/Home/CriarMapa" method="post" enctype="multipart/form-data">
             <input type="file" name="Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa"><br>
@@ -21,85 +23,93 @@
         </form>
     </div>
 
-<!-- CAPA DO MAPA -->
-<img src="@Model.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
+}
+else
+{
 
-<!-- TITULO DO MAPA -->
-<h1 id="tituloMapa" class="text-center">@Model.TituloMapa</h1>
+    <!-- CAPA DO MAPA -->
+    <img src="@Model.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
 
-<!-- CAMINHO DAS FASES -->
-<div class="tudo">
-    <div class="fases">
-        @if (Model != null && Model.QntFases > 0)
-        {       
-                @for (int i = 1; i <= Model.QntFases; i++)
-                {
-                    <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;"/>
-                    <p id="faseTexto"> @i º Fase </p>
-                }
-        }
-    </div>      
+    <!-- TITULO DO MAPA -->
+    <h1 id="tituloMapa" class="text-center">@Model.TituloMapa</h1>
 
-    <!-- DESCRIÇÃO DAS FASES -->
-    <div class="descricaoFase">
-        <h3>Sobre o roadmap</h3>
-        <p>@Model.DescMapa</p>
-        <br>
-        <ul>
-            <li><a href="@Model.LinkMapa">@Model.LinkMapa</a></li>
-        </ul>
+    <!-- CAMINHO DAS FASES -->
+    <div class="tudo">
+        <div class="fases">
+            @if (Model != null && Model.QntFases > 0)
+            {       
+                    @for (int i = 1; i <= Model.QntFases; i++)
+                    {
+                        @if(@i % 2 == 0){
+                            <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 200px"/>
+                            <p id="faseTexto" style="margin-left: 200px"> @i º Fase </p>
+                        }else{
+                            <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;"/>
+                            <p id="faseTexto"> @i º Fase </p>
+                        }
+                    }
+            }
+        </div>      
+
+        <!-- DESCRIÇÃO DAS FASES -->
+        <div class="descricaoFase">
+            <h3>Sobre o roadmap</h3>
+            <p>@Model.DescMapa</p>
+            <br>
+            <ul>
+                <li><a href="@Model.LinkMapa">@Model.LinkMapa</a></li>
+            </ul>
+        </div>
     </div>
-</div>
 
-<hr>
+    <hr>
 
-<h2 id="comentarioTitulo" class="text-center">Comentários</h2>
+    <h2 id="comentarioTitulo" class="text-center">Comentários</h2>
     
+}
+    <script>
+        // Referências dos elementos
+        const concluirFase = document.getElementById("concluirFase");
+        const faseImagem = document.getElementById("faseImagem");
+        const faseTexto = document.getElementById("faseTexto");
+        const faseMapa = document.getElementById("faseMapa");
+        const fecharDialog = document.getElementById("fecharDialog");
+        const idFase = document.getElementById("idFase");
 
-<script>
-    // Referências dos elementos
-    const concluirFase = document.getElementById("concluirFase");
-    const faseImagem = document.getElementById("faseImagem");
-    const faseTexto = document.getElementById("faseTexto");
-    const faseMapa = document.getElementById("faseMapa");
-    const fecharDialog = document.getElementById("fecharDialog");
-    const idFase = document.getElementById("idFase");
 
-
-    // Função para abrir o popup
-    function abrirDialog() {
-        faseMapa.showModal();
-    }
-
-    // Função para fechar o dialog
-    function fecharPopup() {
-        faseMapa.close(); 
-    }
-    
-    window.addEventListener('click', (event) => {
-    if (event.target === popUp) {
-        popUp.close();
-    }
-    });
-
-    function concluir() {
-        if (faseImagem.src.includes("circuloFase.png")) {
-            faseImagem.src = "/assets/icons/circuloConcluido.png ";
-            faseImagem.style.borderRadius = "50%";         // Deixa a imagem arredondada (círculo perfeito)
-            faseImagem.style.boxShadow = "0 0 10px #4CAF50"; // Sombra verde suave
-            faseImagem.style.transition = "all 0.3s ease";  // Transição suave
-            faseImagem.style.width = "80px";
-            faseImagem.style.height="80px";
+        // Função para abrir o popup
+        function abrirDialog() {
+            faseMapa.showModal();
         }
-        faseMapa.close(); 
-    }
 
+        // Função para fechar o dialog
+        function fecharPopup() {
+            faseMapa.close(); 
+        }
+        
+        window.addEventListener('click', (event) => {
+        if (event.target === popUp) {
+            popUp.close();
+        }
+        });
 
-    // Adicionando os eventos de clique
-    faseImagem.addEventListener("click", abrirDialog); // Clique na imagem abre o dialog
-    faseTexto.addEventListener("click", abrirDialog); // Clique no texto "Fase 1" abre o dialog
-    fecharDialog.addEventListener("click", fecharPopup); // Botão de fechar dentro do dialog
-    concluirFase.addEventListener("click", concluir);
+        function concluir() {
+            if (faseImagem.src.includes("circuloFase.png")) {
+                faseImagem.src = "/assets/icons/circuloConcluido.png ";
+                faseImagem.style.borderRadius = "50%";         // Deixa a imagem arredondada (círculo perfeito)
+                faseImagem.style.boxShadow = "0 0 10px #4CAF50"; // Sombra verde suave
+                faseImagem.style.transition = "all 0.3s ease";  // Transição suave
+                faseImagem.style.width = "80px";
+                faseImagem.style.height="80px";
+            }
+            faseMapa.close(); 
+        }
+
+        // Adicionando os eventos de clique
+        faseImagem.addEventListener("click", abrirDialog); // Clique na imagem abre o dialog
+        faseTexto.addEventListener("click", abrirDialog); // Clique no texto "Fase 1" abre o dialog
+        fecharDialog.addEventListener("click", fecharPopup); // Botão de fechar dentro do dialog
+        concluirFase.addEventListener("click", concluir);
 </script>
 </body>
 </html>

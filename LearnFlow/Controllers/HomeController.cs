@@ -17,12 +17,7 @@ public class HomeController : Controller
     //VAI PARA HOME
     public IActionResult Index()
     {
-        //instanciando a home model
-        //criando o objeto
-        HomeModel home = new HomeModel();
-        home.Nome = "Usuário";
-        home.Email = "EmailUser";
-        return View(home);
+            return View();
     }
     
     //VAI PARA PÁGINA PRIVACY
@@ -53,22 +48,23 @@ public class HomeController : Controller
         [HttpPost]
         public async Task<IActionResult> CriarMapa(CriarMapa model)
         {
-            if (model.Imagem != null && model.Imagem.Length > 0)
+        if (model.Imagem != null && model.Imagem.Length > 0)
+        {
+            // Gera o caminho físico onde a imagem será salva
+            var nomeArquivo = Path.GetFileName(model.Imagem.FileName);
+            var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
+
+            // Garante que a pasta exista
+            Directory.CreateDirectory(Path.GetDirectoryName(caminho));
+
+            // Salva a imagem
+            using (var stream = new FileStream(caminho, FileMode.Create))
             {
-                // Gera o caminho físico onde a imagem será salva
-                var nomeArquivo = Path.GetFileName(model.Imagem.FileName);
-                var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
+                await model.Imagem.CopyToAsync(stream);
+            }
 
-                // Garante que a pasta exista
-                Directory.CreateDirectory(Path.GetDirectoryName(caminho));
+            model.ImagemUrl = "/uploads/" + nomeArquivo;
 
-                // Salva a imagem
-                using (var stream = new FileStream(caminho, FileMode.Create))
-                {
-                    await model.Imagem.CopyToAsync(stream);
-                }
-
-                model.ImagemUrl = "/uploads/" + nomeArquivo;
             }
 
             return View(model);
