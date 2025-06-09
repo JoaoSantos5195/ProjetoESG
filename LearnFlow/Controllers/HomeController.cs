@@ -7,12 +7,12 @@ namespace LearnFlow.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+        private readonly IWebHostEnvironment _env;
 
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
+        public HomeController(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
 
     //VAI PARA HOME
     public IActionResult Index()
@@ -44,12 +44,37 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult CriarMapa()
-    {
-        return View();
-    }
-//PÁGINA CADASTRO
-    [HttpGet]
+        [HttpGet]
+        public IActionResult CriarMapa()
+        {
+            return View(new CriarMapa());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CriarMapa(CriarMapa model)
+        {
+            if (model.Imagem != null && model.Imagem.Length > 0)
+            {
+                // Gera o caminho físico onde a imagem será salva
+                var nomeArquivo = Path.GetFileName(model.Imagem.FileName);
+                var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
+
+                // Garante que a pasta exista
+                Directory.CreateDirectory(Path.GetDirectoryName(caminho));
+
+                // Salva a imagem
+                using (var stream = new FileStream(caminho, FileMode.Create))
+                {
+                    await model.Imagem.CopyToAsync(stream);
+                }
+
+                model.ImagemUrl = "/uploads/" + nomeArquivo;
+            }
+
+            return View(model);
+        }
+    
+    //PÁGINA CADASTRO
     public IActionResult Cadastro()
     {
         return View();

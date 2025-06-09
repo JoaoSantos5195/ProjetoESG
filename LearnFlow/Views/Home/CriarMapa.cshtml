@@ -1,51 +1,52 @@
-<!-- LINK PARA CSS DO MAPA -->
-<link rel="stylesheet" href="/css/mapa.css">
+@model LearnFlow.Models.CriarMapa;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINK PARA CSS DO MAPA -->
+    <link rel="stylesheet" href="/css/mapa.css">
+    <title>LearnFlow</title>
+</head>
+<body>
+    <div>
+        <form action="~/Home/CriarMapa" method="post" enctype="multipart/form-data">
+            <input type="file" name="Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa"><br>
+            <input type="text" name="TituloMapa" placeholder="Insira o Titulo do seu mapa"><br>
+            <input type="text" name="DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos"><br>
+            <input type="text" name="LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
+            <input type="number" name="QntFases" placeholder="Quantas fases terá seu mapa?"><br>
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
 
 <!-- CAPA DO MAPA -->
+<img src="@Model.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
 
-<input type="file" name="uploadfile" id="img" style="display:none;"/>
-<label for="img" class="">Clique aqui para adicionar uma capa</label>
-
-<h1 id="tituloMapa" class="text-center">Titulo do seu mapa</h1>
+<!-- TITULO DO MAPA -->
+<h1 id="tituloMapa" class="text-center">@Model.TituloMapa</h1>
 
 <!-- CAMINHO DAS FASES -->
 <div class="tudo">
     <div class="fases">
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px; cursor: pointer;" id="faseImagem">
-        <p id="faseTexto">1º Fase</p>
+        @if (Model != null && Model.QntFases > 0)
+        {       
+                @for (int i = 1; i <= Model.QntFases; i++)
+                {
+                    <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;"/>
+                    <p id="faseTexto"> @i º Fase </p>
+                }
+        }
+    </div>      
 
-        <dialog class="faseMapa" id="faseMapa">
-            <h4 class="text-center"></h4>
-            <p class="text-justify"></p>
-            <hr>
-            <h4>links</h4>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <button id="concluirFase" onclick="concluir()">Marcar como concluido</button>
-            <button id="fecharDialog">Fechar</button>
-        </dialog>
-
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
-        <p>2º Fase</p>
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
-        <p>3º Fase</p>        
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
-        <p>4º Fase</p>        
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
-        <p>5º Fase</p>        
-
-    </div>
-
+    <!-- DESCRIÇÃO DAS FASES -->
     <div class="descricaoFase">
-        <h3></h3>
-        <p></p>
+        <h3>Sobre o roadmap</h3>
+        <p>@Model.DescMapa</p>
         <br>
-        <h3>Links</h3>
         <ul>
-            <li>LINK</li>
+            <li><a href="@Model.LinkMapa">@Model.LinkMapa</a></li>
         </ul>
     </div>
 </div>
@@ -63,18 +64,6 @@
     const faseMapa = document.getElementById("faseMapa");
     const fecharDialog = document.getElementById("fecharDialog");
     const idFase = document.getElementById("idFase");
-    // Seleciona todos os parágrafos da página
-    // Seleciona todos os parágrafos com a classe "faseTexto"
-    const paragrafos = document.querySelectorAll('.faseTexto');
-
-    paragrafos.forEach(p => {
-    const numeros = p.textContent.match(/\d+/g);
-    if (numeros) {
-        const temPar = numeros.some(num => parseInt(num) % 2 === 0);
-        if (temPar) {
-        p.style.marginRight = '40px';
-        }
-    }
 
 
     // Função para abrir o popup
@@ -88,11 +77,10 @@
     }
     
     window.addEventListener('click', (event) => {
-    if (event.target === faseMapa) {
-    faseMapa.close();
+    if (event.target === popUp) {
+        popUp.close();
     }
     });
-
 
     function concluir() {
         if (faseImagem.src.includes("circuloFase.png")) {
@@ -113,3 +101,5 @@
     fecharDialog.addEventListener("click", fecharPopup); // Botão de fechar dentro do dialog
     concluirFase.addEventListener("click", concluir);
 </script>
+</body>
+</html>
