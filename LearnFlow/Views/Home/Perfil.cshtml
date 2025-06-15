@@ -11,40 +11,162 @@
     <title>@ViewData["Title"]</title>
 </head>
 <body>
-    <div class="container">
-        <!-- PERFIL -->
-        <div class="profile-card">
-            <img src="~/assets/icons/elon.jpg" alt="Foto de perfil" class="profile-avatar">
-            <h1 class="profile-name">Mark Jobs</h1>
-            <p class="profile-bio">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilis.
-                Vestibulum at lorem vel ecos pharetra ultricies.
-                Contellunt se cum et odio efficitur aliquet. Fusce a ligula non eros.
-            </p>
-            <div class="profile-menu">
-                <a href="#">Perfil</a>
-                <a asp-area="" asp-controller="Home" asp-action="CriarMapa">Criar mapa</a>
-                <a href="#">Configurações</a>
-            </div>
-        </div>
+    <!-- Preview da imagem -->
+    <div id="preview"></div>
+    <div id="alteracoes" style="display: none;">
+        <!-- Nome -->
+        <label for="">Digite seu nome</label>
+        <br>
+        <input type="text" id="inputNome" placeholder="Digite o novo nome">
+        <br>
+        <input type="button" id="salvarNome" value="Salvar nome">
+        <br>
 
-        <!-- MAPAS -->
-        <div class="maps-section">
-            <h2 class="section-title">Seu mapa: Marketing digital</h2>
-            <p class="section-subtitle">
-                A subheading for this section, as long or as short as you need
-            </p>
-            <a class="btn-create" style="background-color: #3689ff;" asp-area="" asp-controller="Home" asp-action="CriarMapa">Criar mapa</a>
-            <div class="map-item">
-                <h3 class="map-title">Língua Portuguesa</h3>
-                <p class="map-description">Description of featured product</p>
-            </div>
-        </div>
+        <!-- Imagem -->
+        <input id="customButton" type="button" value="Alterar imagem do perfil">
+        <br>
+        <input type="file" id="fileInput" accept="image/*">
+        <br>
+
+        <!-- Descrição -->
+        <label for="">Descreva sobre você</label>
+        <br>
+        <textarea id="inputDescricao" placeholder="Digite a nova descrição"></textarea>
+        <br>
+        <input type="button" id="salvarDescricao" value="Confirmar Descrição">
+        <br>
+        <input id="voltar" onclick="retornar()" type="button" value="Voltar">
     </div>
 
-    <!-- RODAPÉ ADICIONADO -->
-    <footer>
-        &copy; 2025 LearnFlow. Todos os direitos reservados.
-    </footer>
+    <div id="pagina">
+        <div class="container">
+            <!-- PERFIL -->
+            <div class="profile-card">
+                @* <img src="~/assets/icons/elon.jpg" alt="Foto de perfil" class="profile-avatar"> *@
+                @* <h1 class="profile-name">Mark Jobs</h1> *@
+
+                @* <!-- Preview da imagem -->
+                <div id="preview"></div> *@
+                <h1 id="tituloPerfil">Meu Perfil</h1>
+                <p id="descricaoPerfil">Descrição</p>
+
+                <div class="profile-menu">
+                    <a id="a" href="#" onclick="editar()">Editar Perfil</a>
+                    <a asp-area="" asp-controller="Home" asp-action="CriarMapa">Criar mapa</a>
+                    <a href="#">Configurações</a>
+                </div>
+            </div>
+
+            <!-- MAPAS -->
+            <div class="maps-section">
+                <h2 class="section-title">Seu mapa: Marketing digital</h2>
+                <p class="section-subtitle">
+                    A subheading for this section, as long or as short as you need
+                </p>
+                <a class="btn-create" style="background-color: #3689ff;" asp-area="" asp-controller="Home" asp-action="CriarMapa">Criar mapa</a>
+                <div class="map-item">
+                    <h3 class="map-title">Língua Portuguesa</h3>
+                    <p class="map-description">Description of featured product</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <footer>
+            &copy; 2025 LearnFlow. Todos os direitos reservados.
+        </footer>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const customButton = document.getElementById('customButton');
+        const preview = document.getElementById('preview');
+
+        const imagemSalva = localStorage.getItem('imagemPerfil');
+        if (imagemSalva) {
+            preview.style.backgroundImage = `url('${imagemSalva}')`;
+        }
+
+        customButton.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', function(e) {
+                    const imagemDataUrl = e.target.result;
+                    preview.style.backgroundImage = `url('${imagemDataUrl}')`;
+                    localStorage.setItem('imagemPerfil', imagemDataUrl);
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const alteracoes = document.getElementById("alteracoes");
+        const voltar = document.getElementById("voltar");
+        const a = document.getElementById("a");
+        const pagina = document.getElementById("pagina");
+
+        function editar() {
+            alteracoes.style.display = "block";
+            alteracoes.style.height = "650px";
+            preview.style.display = "block";
+            pagina.style.display = "none";
+        }
+
+        function retornar() {
+            alteracoes.style.display = "none";
+            pagina.style.display = "block";
+        }
+
+        const titulo = document.getElementById('tituloPerfil');
+        const input = document.getElementById('inputNome');
+        const botao = document.getElementById('salvarNome');
+
+        const nomePadrao = "Meu Perfil";
+        const nomeSalvo = localStorage.getItem('tituloPerfil');
+
+        if (nomeSalvo) {
+            titulo.textContent = nomeSalvo;
+            input.value = nomeSalvo;
+        } else {
+            titulo.textContent = nomePadrao;
+            input.value = nomePadrao;
+        }
+
+        botao.addEventListener('click', function() {
+            const novoNome = input.value.trim();
+            if (novoNome) {
+                titulo.textContent = novoNome;
+                localStorage.setItem('tituloPerfil', novoNome);
+            }
+        });
+
+        const descricao = document.getElementById('descricaoPerfil');
+        const inputDescricao = document.getElementById('inputDescricao');
+        const botaoDescricao = document.getElementById('salvarDescricao');
+
+        const descricaoPadrao = "Insira uma descrição";
+        const descricaoSalva = localStorage.getItem('descricaoPerfil');
+
+        if (descricaoSalva) {
+            descricao.textContent = descricaoSalva;
+            inputDescricao.value = descricaoSalva;
+        } else {
+            descricao.textContent = descricaoPadrao;
+            inputDescricao.value = descricaoPadrao;
+        }
+
+        botaoDescricao.addEventListener('click', function() {
+            const novaDescricao = inputDescricao.value.trim();
+            if (novaDescricao) {
+                descricao.textContent = novaDescricao;
+                localStorage.setItem('descricaoPerfil', novaDescricao);
+            }
+        });
+    </script>
+
 </body>
 </html>
