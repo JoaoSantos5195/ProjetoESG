@@ -9,3 +9,10 @@ public class CriarMapa
     public string LinkMapa { get; set; }
     public int QntFases { get; set; }
 }
+
+public class CriarFase
+{
+    public string? TituloFase { get; set; }
+    public string? DescFase { get; set; }
+    public string LinkFase { get; set; }
+}
