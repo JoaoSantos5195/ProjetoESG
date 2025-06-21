@@ -73,31 +73,34 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult CriarMapa()
     {
-        return View(new CriarMapa());
+        var viewModel = new MapaFaseViewModel
+        {
+            Mapa = new CriarMapa(),
+            Fase = new CriarFase()
+        };
+
+        return View(viewModel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CriarMapa(CriarMapa model)
+    public async Task<IActionResult> CriarMapa(MapaFaseViewModel model)
     {
-        if (model.Imagem != null && model.Imagem.Length > 0)
+        if (model.Mapa.Imagem != null && model.Mapa.Imagem.Length > 0)
         {
-            // Gera o caminho físico onde a imagem será salva
-            var nomeArquivo = Path.GetFileName(model.Imagem.FileName);
+            var nomeArquivo = Path.GetFileName(model.Mapa.Imagem.FileName);
             var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
 
-            // Garante que a pasta exista
             Directory.CreateDirectory(Path.GetDirectoryName(caminho));
 
-            // Salva a imagem
             using (var stream = new FileStream(caminho, FileMode.Create))
             {
-                await model.Imagem.CopyToAsync(stream);
+                await model.Mapa.Imagem.CopyToAsync(stream);
             }
 
-            model.ImagemUrl = "/uploads/" + nomeArquivo;
+            model.Mapa.ImagemUrl = "/uploads/" + nomeArquivo;
         }
 
-        return View(model);
+        return View("CriarMapa", model);
     }
 
 }

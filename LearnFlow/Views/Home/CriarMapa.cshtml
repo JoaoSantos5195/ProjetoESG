@@ -1,4 +1,4 @@
-@model LearnFlow.Models.CriarMapa;
+@model LearnFlow.ViewModels.MapaFaseViewModel;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,15 +12,15 @@
 </head>
 <body>
 
-@if (string.IsNullOrEmpty(Model.TituloMapa) && string.IsNullOrEmpty(Model.DescMapa))
+@if (string.IsNullOrEmpty(Model.Mapa.TituloMapa) && string.IsNullOrEmpty(Model.Mapa.DescMapa))
 {
-    <div>
+    <div>   
         <form action="~/Home/CriarMapa" method="post" enctype="multipart/form-data">
-            <input type="file" name="Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa" required><br>
-            <input type="text" name="TituloMapa" placeholder="Insira o Titulo do seu mapa" required><br>
-            <input type="text" name="DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos" required><br>
-            <input type="text" name="LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
-            <input type="number" name="QntFases" placeholder="Quantas fases terá seu mapa?" required><br>
+            <input type="file" name="Mapa.Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa" required><br>
+            <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa" required><br>
+            <input type="textarea" name="Mapa.DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos" required><br>
+            <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
+            <input type="number" name="Mapa.QntFases" placeholder="Quantas fases terá seu mapa?" required><br>
             <button type="submit">Salvar</button>
         </form>
     </div>
@@ -28,56 +28,69 @@
 else
 {
     <!-- CAPA DO MAPA -->
-    <img src="@Model.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
+    <img src="@Model.Mapa.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
 
     <!-- TITULO DO MAPA -->
     <h1 id="tituloMapa" class="text-center">
-    @Model.TituloMapa
-    <i class="bi bi-pencil-square" style="font-size: 24px; cursor: pointer; margin-left: 8px;" onclick="abrirDialog()"></i>
+    @Model.Mapa.TituloMapa
+    <i class="bi bi-pencil-square" style="font-size: 24px; cursor: pointer; margin-left: 8px;" onclick="abrirEditMapa()"></i>
     </h1>
 
-    <dialog class="formEdit" id="formEdit">
+    <dialog class="formEditMapa" id="formEditMapa">
         <h4>Edite seu mapa</h4>
-            <form action="~/Home/CriarMapa" method="post" enctype="multipart/form-data">
-                <input type="file" name="Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa"><br>
-                <input type="text" name="TituloMapa" placeholder="Insira o Titulo do seu mapa"><br>
-                <input type="text" name="DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos"><br>
-                <input type="text" name="LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
-                <input type="number" name="QntFases" placeholder="Quantas fases terá seu mapa?"><br>
-                <button type="submit">Salvar alterações</button>
-                <button id="fecharDialog">Fechar</button>
-            </form>
+                <form action="~/Home/CriarMapa" method="post" enctype="multipart/form-data">
+                    <input type="file" name="Mapa.Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa" ><br>
+                    <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa" ><br>
+                    <input type="textarea" name="Mapa.DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos" ><br>
+                    <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
+                    <input type="number" name="Mapa.QntFases" placeholder="Quantas fases terá seu mapa?" ><br>
+                    <button type="submit">Salvar alterações</button>
+                    <button type="button" onclick="fecharEditMapa()">Fechar</button>
+                </form>
     </dialog>
 
     <!-- CAMINHO DAS FASES -->
     <div class="tudo">
         <div class="fases">
-            @if (Model != null && Model.QntFases > 0)
+            @if (Model != null && Model.Mapa.QntFases > 0)
             {       
-                    @for (int i = 1; i <= Model.QntFases; i++)
-                    {
-                        @if (@i%2 == 0){
-                            <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 200px"/>
-                            <p id="faseTexto" style="margin-left: 200px"> @i º Fase </p>
-                        }else{
-                            <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;"/>
-                            <p id="faseTexto"> @i º Fase </p>
-                        }
+                @for (int i = 1; i <= Model.Mapa.QntFases; i++)
+                {
+                    @if (@i%2 == 0){
+                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 200px"onclick="abrirEditFase()"/>
+                        <p id="faseTexto" style="margin-left: 200px" value="@i"> @i º Fase </p>
+                    }else{
+                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirEditFase()"/>
+                        <p id="faseTexto" value="@i"> @i º Fase </p>
                     }
+                }
+                    <dialog class="formEditFase" id="formEditFase"> 
+                        <form action="~/Home/CriarFase" method="post">
+                            <input type="text" name="Fase.TituloFase" id="" placeholder="Qual o titulo da fase? ">
+                            <input type="textarea" name="Fase.DescFase" id="" placeholder="Qual a descrição da fase? ">
+                            <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado ">
+                            <button type="submit">Salvar alterações</button>
+                            <button onclick="fecharEditFase()" type="button">Fechar</button>
+                        </form>
+                    </dialog>
             }
         </div>      
 
-        <!-- DESCRIÇÃO DAS FASES -->
+        <!-- DESCRIÇÃO DO MAPA -->
         <div class="descricaoFase">
             <h3>Sobre o roadmap</h3>
-            <p>@Model.DescMapa</p>
+            <p>@Model.Mapa.DescMapa</p>
             <br>
             <ul>
-                <li><a href="@Model.LinkMapa">@Model.LinkMapa</a></li>
+                <li><a href="@Model.Mapa.LinkMapa">@Model.Mapa.LinkMapa</a></li>
             </ul>
         </div>
     </div>
 
+    <hr>
+    <form action="~/Home/ExcluirMapa" method="post">
+        <button type="submit" name="excluirMapa" id="excluirMapa">Excluir Mapa</button>
+    </form>
     <hr>
 
     <h2 id="comentarioTitulo" class="text-center">Comentários</h2>
@@ -85,23 +98,29 @@ else
 }
     <script>
         // Referências dos elementos
-        const formEdit = document.getElementById("formEdit");
+        const formEditFase = document.getElementById("formEditFase");
+        const formEditMapa = document.getElementById("formEditMapa");
         const concluirFase = document.getElementById("concluirFase");
         const faseImagem = document.getElementById("faseImagem");
         const faseTexto = document.getElementById("faseTexto");
         const faseMapa = document.getElementById("faseMapa");
-        const fecharDialog = document.getElementById("fecharDialog");
         const idFase = document.getElementById("idFase");
 
 
         // Função para abrir o popup
-        function abrirDialog() {
-            formEdit.showModal();
+        function abrirEditMapa() {
+            formEditMapa.showModal();
+        }
+        function abrirEditFase(){
+            formEditFase.showModal();
         }
 
         // Função para fechar o dialog
-        function fecharPopup() {
-            formEdit.close(); 
+        function fecharEditMapa() {
+            formEditMapa.close();
+        }
+        function fecharEditFase(){
+            formEditFase.close(); 
         }
         
         window.addEventListener('click', (event) => {
@@ -129,5 +148,5 @@ else
         fecharDialog.addEventListener("click", fecharPopup); // Botão de fechar dentro do dialog
         concluirFase.addEventListener("click", concluir);
     </script>
-</body>
-</html>
+    </body>
+    </html>

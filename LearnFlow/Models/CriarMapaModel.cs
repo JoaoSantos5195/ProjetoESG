@@ -12,6 +12,7 @@ public class CriarMapa
 
 public class CriarFase
 {
+    public int? IdFase { get; set; }
     public string? TituloFase { get; set; }
     public string? DescFase { get; set; }
     public string LinkFase { get; set; }
