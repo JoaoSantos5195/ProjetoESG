@@ -8,12 +8,12 @@ namespace LearnFlow.Controllers;
 
 public class HomeController : Controller
 {
-        private readonly IWebHostEnvironment _env;
+    private readonly IWebHostEnvironment _env;
 
-        public HomeController(IWebHostEnvironment env)
-        {
-            _env = env;
-        }
+    public HomeController(IWebHostEnvironment env)
+    {
+        _env = env;
+    }
 
     //TRATAMENTO PADRÃO DE ERRO
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -27,14 +27,15 @@ public class HomeController : Controller
     {
             return View();
     }
-    
+
     //VAI PARA PÁGINA PRIVACY
     public IActionResult Sobre()
     {
         return View();
     }
-    //VAI PARA MAPA
-    public IActionResult Mapa(){
+    //VAI PARA MAPAFechar ￼Editar Fase 1
+    public IActionResult Mapa()
+    {
         return View();
     }
     //VAI PARA LOGIN
@@ -53,6 +54,7 @@ public class HomeController : Controller
     {
         return View();
     }
+
     [HttpPost]
     public IActionResult Cadastro(CadastroModel model)
     {
@@ -63,36 +65,78 @@ public class HomeController : Controller
     }
 
     //CRIAÇÃO DE MAPA
-
+    private static List<CriarFase> fasesDoMapa = new List<CriarFase>();
+    private static CriarMapa mapaAtual = new CriarMapa();
 
     [HttpGet]
     public IActionResult CriarMapa()
     {
-        return View(new CriarMapa());
+        ViewBag.Fases = fasesDoMapa; // Devolve as fases já salvas
+        var viewModel = new MapaFaseViewModel
+        {
+            Mapa = new CriarMapa(),
+            Fase = new CriarFase()
+        };
+
+        return View(viewModel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CriarMapa(CriarMapa model)
+    //TRATAMENTO DA IMAGEM ENVIADA, COLOCANDO-A NA PASTA UPLOADS
+    public async Task<IActionResult> CriarMapa(MapaFaseViewModel model)
     {
-        if (model.Imagem != null && model.Imagem.Length > 0)
+        if (model.Mapa.Imagem != null && model.Mapa.Imagem.Length > 0)
         {
-            // Gera o caminho físico onde a imagem será salva
-            var nomeArquivo = Path.GetFileName(model.Imagem.FileName);
+            var nomeArquivo = Path.GetFileName(model.Mapa.Imagem.FileName);
             var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
 
-            // Garante que a pasta exista
             Directory.CreateDirectory(Path.GetDirectoryName(caminho));
 
-            // Salva a imagem
             using (var stream = new FileStream(caminho, FileMode.Create))
             {
-                await model.Imagem.CopyToAsync(stream);
+                await model.Mapa.Imagem.CopyToAsync(stream);
             }
 
-            model.ImagemUrl = "/uploads/" + nomeArquivo;
+            model.Mapa.ImagemUrl = "/uploads/" + nomeArquivo;
         }
 
-        return View(model);
+        // Atualiza o mapaAtual
+        mapaAtual = model.Mapa;
+
+        return View("CriarMapa", new MapaFaseViewModel
+        {
+            Mapa = mapaAtual,
+            Fase = new CriarFase()
+        });
     }
 
+    [HttpPost]
+    public IActionResult CriarFase(MapaFaseViewModel model)
+    {
+        var fase = model.Fase;
+
+        var faseExistente = fasesDoMapa.FirstOrDefault(f => f.IdFase == fase.IdFase);
+
+        if (faseExistente != null)
+        {
+            faseExistente.TituloFase = fase.TituloFase;
+            faseExistente.DescFase = fase.DescFase;
+            faseExistente.LinkFase = fase.LinkFase;
+        }
+        else
+        {
+            fasesDoMapa.Add(fase);
+        }
+
+        ViewBag.Fases = fasesDoMapa;
+
+        return View("CriarMapa", new MapaFaseViewModel
+        {
+            Mapa = mapaAtual,    // <- Aqui usa o mapaAtual guardado
+            Fase = fase
+        });
+    }
+
+
 }
+

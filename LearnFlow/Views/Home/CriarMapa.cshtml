@@ -1,133 +1,175 @@
-@model LearnFlow.Models.CriarMapa;
+    @model LearnFlow.ViewModels.MapaFaseViewModel;
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- LINK PARA CSS DO MAPA -->
-    <link rel="stylesheet" href="/css/mapa.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <title>LearnFlow</title>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/mapa.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <title>LearnFlow</title>
+    </head>
+    <body>
 
-@if (string.IsNullOrEmpty(Model.TituloMapa) && string.IsNullOrEmpty(Model.DescMapa))
-{
-    <div>
-        <form action="~/Home/CriarMapa" method="post" enctype="multipart/form-data">
-            <input type="file" name="Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa" required><br>
-            <input type="text" name="TituloMapa" placeholder="Insira o Titulo do seu mapa" required><br>
-            <input type="text" name="DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos" required><br>
-            <input type="text" name="LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
-            <input type="number" name="QntFases" placeholder="Quantas fases terá seu mapa?" required><br>
-            <button type="submit">Salvar</button>
-        </form>
-    </div>
-}
-else
-{
-    <!-- CAPA DO MAPA -->
-    <img src="@Model.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
-
-    <!-- TITULO DO MAPA -->
-    <h1 id="tituloMapa" class="text-center">
-    @Model.TituloMapa
-    <i class="bi bi-pencil-square" style="font-size: 24px; cursor: pointer; margin-left: 8px;" onclick="abrirDialog()"></i>
-    </h1>
-
-    <dialog class="formEdit" id="formEdit">
-        <h4>Edite seu mapa</h4>
-            <form action="~/Home/CriarMapa" method="post" enctype="multipart/form-data">
-                <input type="file" name="Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa"><br>
-                <input type="text" name="TituloMapa" placeholder="Insira o Titulo do seu mapa"><br>
-                <input type="text" name="DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos"><br>
-                <input type="text" name="LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
-                <input type="number" name="QntFases" placeholder="Quantas fases terá seu mapa?"><br>
-                <button type="submit">Salvar alterações</button>
-                <button id="fecharDialog">Fechar</button>
+    <!--SE NÃO TIVER MAPA, APARECE FORM -->
+    @if (string.IsNullOrEmpty(Model.Mapa.TituloMapa) && string.IsNullOrEmpty(Model.Mapa.DescMapa))
+    {
+        <div>   
+            <form action="@Url.Action("CriarMapa", "Home")" method="post" enctype="multipart/form-data">
+                <input type="file" name="Mapa.Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa" required><br>
+                <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa" required><br>
+                <textarea name="Mapa.DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos" required></textarea><br>
+                <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
+                <input type="number" name="Mapa.QntFases" placeholder="Quantas fases terá seu mapa?"><br>
+                <button type="submit">Salvar</button>
             </form>
-    </dialog>
+        </div>
+    }
+    else
+    {
+        <!-- CAPA DO MAPA -->
+        <img src="@Model.Mapa.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
 
-    <!-- CAMINHO DAS FASES -->
-    <div class="tudo">
-        <div class="fases">
-            @if (Model != null && Model.QntFases > 0)
-            {       
-                    @for (int i = 1; i <= Model.QntFases; i++)
+        <!-- TITULO DO MAPA -->
+        <h1 id="tituloMapa" class="text-center">
+            @Model.Mapa.TituloMapa
+            <i class="bi bi-pencil-square" style="font-size: 24px; cursor: pointer; margin-left: 8px;" onclick="abrirEditMapa()"></i>
+        </h1>
+
+        <!-- DIALOG EDITAR MAPA -->
+        <dialog id="formEditMapa" class="formEditMapa">
+            <h4>Edite seu mapa</h4>
+            <form action="@Url.Action("CriarMapa", "Home")" method="post" enctype="multipart/form-data">
+                <input type="file" name="Mapa.Imagem" accept=".jpg, .png"><br>
+                <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa"><br>
+                <textarea name="Mapa.DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos"></textarea><br>
+                <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
+                <input type="number" name="Mapa.QntFases" placeholder="Quantas fases terá seu mapa?"><br>
+                <button type="submit">Salvar alterações</button>
+                <button type="button" onclick="fecharEditMapa()">Fechar</button>
+            </form>
+        </dialog>
+
+        <div class="tudo">
+            <div class="fases">
+                @if (Model != null && Model.Mapa.QntFases > 0)
+                {
+                    int i = 1;            
+                    @for (i = 1; i <= Model.Mapa.QntFases; i++)
                     {
-                        @if (@i%2 == 0){
-                            <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 200px"/>
-                            <p id="faseTexto" style="margin-left: 200px"> @i º Fase </p>
-                        }else{
-                            <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;"/>
-                            <p id="faseTexto"> @i º Fase </p>
+                        @if (i % 2 == 0)
+                        {
+                            @if (ViewBag.Fases == null)
+                            {
+                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 400px" onclick="abrirEditFase(@i)"/>
+                                <p style="margin-left: 400px"> @i º Fase </p>
+                            }
+                            else if (ViewBag.Fases != null)
+                            {
+                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 400px" onclick="abrirDialogFase(@i)"/>
+                                <p style="margin-left: 400px"> @i º Fase </p>
+                            }
+                        }
+                        else
+                        {   
+                            @if (ViewBag.Fases == null)
+                            {
+                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirEditFase(@i)"/>
+                                <p> @i º Fase </p>
+                            }
+                            else if (ViewBag.Fases != null)
+                            {
+                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirDialogFase(@i)"/>
+                                <p> @i º Fase </p>
+                            }
                         }
                     }
-            }
-        </div>      
+                }
 
-        <!-- DESCRIÇÃO DAS FASES -->
-        <div class="descricaoFase">
-            <h3>Sobre o roadmap</h3>
-            <p>@Model.DescMapa</p>
-            <br>
-            <ul>
-                <li><a href="@Model.LinkMapa">@Model.LinkMapa</a></li>
-            </ul>
+                @if (ViewBag.Fases == null)
+                {
+                    <dialog id="formEditFase" class="formEditFase"> 
+                        <form action="@Url.Action("CriarFase", "Home")" method="post">
+                            <input type="hidden" id="faseIdInput" name="Fase.IdFase" value="" />
+                            <input type="text" name="Fase.TituloFase" placeholder="Qual o titulo da fase? "><br>
+                            <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase? "></textarea><br>
+                            <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado "><br>
+                            <button type="submit">Salvar alterações</button>
+                            <button type="button" onclick="fecharEditFase()">Fechar</button>
+                        </form>
+                    </dialog>
+                }
+                else if (ViewBag.Fases != null)
+                {
+                    @foreach (var fase in (List<LearnFlow.Models.CriarFase>)ViewBag.Fases)
+                    {
+                        <div>
+                            <button type="button" onclick="abrirDialogFase(@fase.IdFase)">Ver Fase @fase.IdFase</button>
+
+                            <dialog id="faseDialog_@fase.IdFase" class="faseDialog">
+                                <h4>@fase.TituloFase (Fase @fase.IdFase)</h4>
+                                <p>@fase.DescFase</p>
+                                <p>Links: @fase.LinkFase</p>
+                                <button onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
+                            </dialog>
+                        </div>
+                    }
+                }
+            </div>      
+
+            <div class="descricaoFase">
+                <h3>Sobre o roadmap</h3>
+                <p>@Model.Mapa.DescMapa</p>
+                <br>
+                <ul>
+                    <li><a href="@Model.Mapa.LinkMapa">@Model.Mapa.LinkMapa</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <hr>
+        <hr>
+        <form action="@Url.Action("ExcluirMapa", "Home")" method="post">
+            <button type="submit" name="excluirMapa" id="excluirMapa">Excluir Mapa</button>
+        </form>
+        <hr>
 
-    <h2 id="comentarioTitulo" class="text-center">Comentários</h2>
-    
-}
-    <script>
-        // Referências dos elementos
-        const formEdit = document.getElementById("formEdit");
-        const concluirFase = document.getElementById("concluirFase");
-        const faseImagem = document.getElementById("faseImagem");
-        const faseTexto = document.getElementById("faseTexto");
-        const faseMapa = document.getElementById("faseMapa");
-        const fecharDialog = document.getElementById("fecharDialog");
-        const idFase = document.getElementById("idFase");
+        <h2 id="comentarioTitulo" class="text-center">Comentários</h2>
+    }
 
+        <script>
+            const formEditMapa = document.getElementById("formEditMapa");
+            const formEditFase = document.getElementById("formEditFase");
+            const faseIdInput = document.getElementById("faseIdInput");
 
-        // Função para abrir o popup
-        function abrirDialog() {
-            formEdit.showModal();
-        }
-
-        // Função para fechar o dialog
-        function fecharPopup() {
-            formEdit.close(); 
-        }
-        
-        window.addEventListener('click', (event) => {
-        if (event.target === popUp) {
-            popUp.close();
-        }
-        });
-
-        function concluir() {
-            if (faseImagem.src.includes("circuloFase.png")) {
-                faseImagem.src = "/assets/icons/circuloConcluido.png ";
-                faseImagem.style.borderRadius = "50%";         // Deixa a imagem arredondada (círculo perfeito)
-                faseImagem.style.boxShadow = "0 0 10px #4CAF50"; // Sombra verde suave
-                faseImagem.style.transition = "all 0.3s ease";  // Transição suave
-                faseImagem.style.width = "80px";
-                faseImagem.style.height="80px";
+            function abrirEditMapa() {
+                formEditMapa.showModal();
             }
-            faseMapa.close(); 
-        }
+            function fecharEditMapa() {
+                formEditMapa.close();
+            }
+            function abrirEditFase(idFase) {
+                if (faseIdInput) {
+                    faseIdInput.value = idFase;
+                    formEditFase.showModal();
+                }
+            }
+            function fecharEditFase() {
+                if (formEditFase) formEditFase.close();
+            }
+            function abrirDialogFase(idFase) {
+                const dialog = document.getElementById('faseDialog_' + idFase);
+                if (dialog) dialog.showModal();
+            }
+            function fecharDialogFase(idFase) {
+                const dialog = document.getElementById('faseDialog_' + idFase);
+                if (dialog) dialog.close();
+            }
+            window.addEventListener('click', (event) => {
+                if (event.target === popUp) {
+                    popUp.close();
+                }
+            });
+        </script>
 
-
-        // Adicionando os eventos de clique
-        faseImagem.addEventListener("click", abrirDialog); // Clique na imagem abre o dialog
-        faseTexto.addEventListener("click", abrirDialog); // Clique no texto "Fase 1" abre o dialog
-        fecharDialog.addEventListener("click", fecharPopup); // Botão de fechar dentro do dialog
-        concluirFase.addEventListener("click", concluir);
-    </script>
-</body>
-</html>
+    </body>
+    </html>
