@@ -23,6 +23,45 @@ a {
   border-color: #1861ac;
 }
 
+.nav-item {
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #1b6ec2;
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #1b6ec2;
+  transform: translateY(-2px);
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.logo-animation {
+  font-family: 'Shrikhand', cursive;
+  display: inline-block;
+  color: #fff; /* texto branco */
+  transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.logo-animation:hover {
+  color: #e0e0e0; /* branco claro no hover para dar destaque suave */
+  transform: scale(1.2) rotate(-3deg);
+  text-shadow: 0 0 15px #fff, 0 0 20px #aaa;
+}
+
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
