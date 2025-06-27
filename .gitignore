@@ -67,3 +67,6 @@ _ReSharper*/
 ## Docker
 **/Dockerfile.*
 docker-compose.override.yml
+
+## Uploads do user
+LearnFlow/wwwroot/uploads

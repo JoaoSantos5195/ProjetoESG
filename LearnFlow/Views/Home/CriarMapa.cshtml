@@ -20,13 +20,11 @@
                 <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa" required><br>
                 <textarea name="Mapa.DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos" required></textarea><br>
                 <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
-                <input type="number" name="Mapa.QntFases" placeholder="Quantas fases terá seu mapa?"><br>
                 <button type="submit">Salvar</button>
             </form>
         </div>
     }
-    else
-    {
+    else{
         <!-- CAPA DO MAPA -->
         <img src="@Model.Mapa.ImagemUrl" class="imgCapa" alt="Imagem Enviada" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;" />
 
@@ -38,15 +36,22 @@
 
         <!-- DIALOG EDITAR MAPA -->
         <dialog id="formEditMapa" class="formEditMapa">
-            <h4>Edite seu mapa</h4>
-            <form action="@Url.Action("CriarMapa", "Home")" method="post" enctype="multipart/form-data">
-                <input type="file" name="Mapa.Imagem" accept=".jpg, .png"><br>
-                <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa"><br>
-                <textarea name="Mapa.DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos"></textarea><br>
-                <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
-                <input type="number" name="Mapa.QntFases" placeholder="Quantas fases terá seu mapa?"><br>
-                <button type="submit">Salvar alterações</button>
-                <button type="button" onclick="fecharEditMapa()">Fechar</button>
+            <form action="@Url.Action("editMapa", "Home")" method="post" enctype="multipart/form-data">
+                <select name="opcao" id="opcao" class="form-control" onchange="mostrarCampo()">
+                    <option value="">-- Selecione --</option>
+                    <option value="tituloMapa">Titulo do mapa</option>
+                    <option value="editFoto">Imagem da capa</option>
+                    <option value="editDesc">Descrição do mapa</option>
+                    <option value="editLink">Links de estudo</option>
+                </select>
+
+                <div id="campo-edicao" style="display: none;" class="mt-3">
+                    <label id="label-edicao" for="novoValor">Qual o novo valor?</label>
+                    <input type="text" name="novoValor" id="novoValor" class="form-control" />
+                    <input type="file" name="novaImagem" id="novaImagem" style="display: none;" />
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Confirmar Edição</button>
             </form>
         </dialog>
 
@@ -152,6 +157,22 @@
                     popUp.close();
                 }
             });
+            function mostrarCampo() {
+                const opcao = document.getElementById("opcao").value;
+                const campoEdicao = document.getElementById("campo-edicao");
+                const inputTexto = document.getElementById("novoValor");
+                const inputImagem = document.getElementById("novaImagem");
+
+                campoEdicao.style.display = "block";
+                inputTexto.style.display = "none";
+                inputImagem.style.display = "none";
+
+                if (opcao === "editFoto") {
+                    inputImagem.style.display = "block";
+                } else {
+                    inputTexto.style.display = "block";
+                }
+            }
         </script>
 
     </body>

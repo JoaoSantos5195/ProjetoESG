@@ -25,7 +25,7 @@ public class HomeController : Controller
     //VAI PARA HOME
     public IActionResult Index()
     {
-            return View();
+        return View();
     }
 
     //VAI PARA PÁGINA PRIVACY
@@ -127,6 +127,41 @@ public class HomeController : Controller
             }
         }
 
+        return RedirectToAction("CriarMapa");
+    }
+
+    // POST do formulário do mapa
+    [HttpPost]
+    public async Task<IActionResult> editMapa(MapaFaseViewModel model, string opcao, string novoValor, IFormFile novaImagem)
+    {
+        var mapa = model.Mapa;
+        switch (opcao)
+        {
+            case "tituloMapa":
+                mapaAtual.TituloMapa = novoValor;
+                break;
+            case "editDesc":
+                mapaAtual.DescMapa = novoValor;
+                break;
+            case "editLink":
+                mapaAtual.LinkMapa = novoValor;
+                break;
+            case "editFoto":
+                if (novaImagem != null && novaImagem.Length > 0)
+                {
+                    var nomeArquivo = Path.GetFileName(novaImagem.FileName);
+                    var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
+                    Directory.CreateDirectory(Path.GetDirectoryName(caminho));
+
+                    using (var stream = new FileStream(caminho, FileMode.Create))
+                    {
+                        await novaImagem.CopyToAsync(stream);
+                    }
+
+                    mapaAtual.ImagemUrl = "/uploads/" + nomeArquivo;
+                }
+                break;    
+        }
         return RedirectToAction("CriarMapa");
     }
 
