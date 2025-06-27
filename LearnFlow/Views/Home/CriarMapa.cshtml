@@ -14,7 +14,7 @@
     <!--SE NÃO TIVER MAPA, APARECE FORM -->
     @if (string.IsNullOrEmpty(Model.Mapa.TituloMapa) && string.IsNullOrEmpty(Model.Mapa.DescMapa))
     {
-        <div>   
+        <div>
             <form action="@Url.Action("CriarMapa", "Home")" method="post" enctype="multipart/form-data">
                 <input type="file" name="Mapa.Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa" required><br>
                 <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa" required><br>
@@ -52,74 +52,59 @@
 
         <div class="tudo">
             <div class="fases">
-                @if (Model != null && Model.Mapa.QntFases > 0)
+                @foreach (var fase in Model.TodasFases)
                 {
-                    int i = 1;            
-                    @for (i = 1; i <= Model.Mapa.QntFases; i++)
+                    if (fase.IdFase % 2 == 0)
                     {
-                        @if (i % 2 == 0)
+                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 200px" onclick="abrirDialogFase(@fase.IdFase)" />
+                        <p style="margin-left: 200px">Fase @fase.IdFase</p>
+                    }
+                    else
+                    {
+                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirDialogFase(@fase.IdFase)" />
+                        <p>Fase @fase.IdFase</p>
+                    }
+
+                    <dialog id="faseDialog_@fase.IdFase" class="faseDialog">
+                        @if (string.IsNullOrEmpty(fase.TituloFase) && string.IsNullOrEmpty(fase.DescFase) && string.IsNullOrEmpty(fase.LinkFase))
                         {
-                            @if (ViewBag.Fases == null)
-                            {
-                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 400px" onclick="abrirEditFase(@i)"/>
-                                <p style="margin-left: 400px"> @i º Fase </p>
-                            }
-                            else if (ViewBag.Fases != null)
-                            {
-                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 400px" onclick="abrirDialogFase(@i)"/>
-                                <p style="margin-left: 400px"> @i º Fase </p>
-                            }
+                            <form action="@Url.Action("CriarFase", "Home")" method="post">
+                                <input type="hidden" name="Fase.IdFase" value="@fase.IdFase" />
+                                <input type="text" name="Fase.TituloFase" placeholder="Qual o título da fase?" /><br>
+                                <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase?"></textarea><br>
+                                <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado" /><br>
+                                <button type="submit">Salvar</button>
+                                <button type="button" onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
+                            </form>
                         }
                         else
-                        {   
-                            @if (ViewBag.Fases == null)
-                            {
-                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirEditFase(@i)"/>
-                                <p> @i º Fase </p>
-                            }
-                            else if (ViewBag.Fases != null)
-                            {
-                                <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirDialogFase(@i)"/>
-                                <p> @i º Fase </p>
-                            }
+                        {
+                            <h4>@fase.TituloFase (Fase @fase.IdFase)</h4>
+                            <p>@fase.DescFase</p>
+                            <p>Links: <a href="@fase.LinkFase" target="_blank">@fase.LinkFase</a></p>
+                            <button type="button" onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
                         }
-                    }
-                }
-
-                @if (ViewBag.Fases == null)
-                {
-                    <dialog id="formEditFase" class="formEditFase"> 
-                        <form action="@Url.Action("CriarFase", "Home")" method="post">
-                            <input type="hidden" id="faseIdInput" name="Fase.IdFase" value="" />
-                            <input type="text" name="Fase.TituloFase" placeholder="Qual o titulo da fase? "><br>
-                            <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase? "></textarea><br>
-                            <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado "><br>
-                            <button type="submit">Salvar alterações</button>
-                            <button type="button" onclick="fecharEditFase()">Fechar</button>
-                        </form>
                     </dialog>
                 }
-                else if (ViewBag.Fases != null)
-                {
-                    @foreach (var fase in (List<LearnFlow.Models.CriarFase>)ViewBag.Fases)
-                    {
-                        <div>
-                            <button type="button" onclick="abrirDialogFase(@fase.IdFase)">Ver Fase @fase.IdFase</button>
 
-                            <dialog id="faseDialog_@fase.IdFase" class="faseDialog">
-                                <h4>@fase.TituloFase (Fase @fase.IdFase)</h4>
-                                <p>@fase.DescFase</p>
-                                <p>Links: @fase.LinkFase</p>
-                                <button onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
-                            </dialog>
-                        </div>
-                    }
-                }
-            </div>      
+                <button onclick="abrirDialogNovaFase()">Adicionar Nova Fase</button>
+
+                <dialog id="novaFaseDialog" class="formEditFase">
+                    <form action="@Url.Action("CriarFase", "Home")" method="post">
+                        <input type="hidden" name="Fase.IdFase" value="0" />
+                        <input type="text" name="Fase.TituloFase" placeholder="Qual o título da fase?" /><br>
+                        <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase?"></textarea><br>
+                        <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado" /><br>
+                        <button type="submit">Salvar</button>
+                        <button type="button" onclick="fecharDialogNovaFase()">Fechar</button>
+                    </form>
+                </dialog>
+            </div>
+    
 
             <div class="descricaoFase">
                 <h3>Sobre o roadmap</h3>
-                <p>@Model.Mapa.DescMapa</p>
+                <p class="text-justify">@Model.Mapa.DescMapa</p>
                 <br>
                 <ul>
                     <li><a href="@Model.Mapa.LinkMapa">@Model.Mapa.LinkMapa</a></li>
@@ -147,15 +132,6 @@
             function fecharEditMapa() {
                 formEditMapa.close();
             }
-            function abrirEditFase(idFase) {
-                if (faseIdInput) {
-                    faseIdInput.value = idFase;
-                    formEditFase.showModal();
-                }
-            }
-            function fecharEditFase() {
-                if (formEditFase) formEditFase.close();
-            }
             function abrirDialogFase(idFase) {
                 const dialog = document.getElementById('faseDialog_' + idFase);
                 if (dialog) dialog.showModal();
@@ -163,6 +139,13 @@
             function fecharDialogFase(idFase) {
                 const dialog = document.getElementById('faseDialog_' + idFase);
                 if (dialog) dialog.close();
+            }
+
+            function abrirDialogNovaFase() {
+                document.getElementById("novaFaseDialog").showModal();
+            }
+            function fecharDialogNovaFase() {
+                document.getElementById("novaFaseDialog").close();
             }
             window.addEventListener('click', (event) => {
                 if (event.target === popUp) {
