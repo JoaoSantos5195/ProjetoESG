@@ -70,78 +70,70 @@ public class HomeController : Controller
     }
 
     //CRIAÇÃO DE MAPA
-    private static List<CriarFase> fasesDoMapa = new List<CriarFase>();
-    private static CriarMapa mapaAtual = new CriarMapa();
+    private static List<CriarFase> fasesDoMapa = new(); // Guarda as fases criadas
+    private static CriarMapa mapaAtual = new();         // Guarda o mapa
 
-    [HttpGet]
+    private static int proximoId = 1; // Controla IDs únicos
+
+    // GET
     public IActionResult CriarMapa()
     {
-        ViewBag.Fases = fasesDoMapa; // Devolve as fases já salvas
         var viewModel = new MapaFaseViewModel
         {
-            Mapa = new CriarMapa(),
-            Fase = new CriarFase()
+            Mapa = mapaAtual,
+            TodasFases = fasesDoMapa
         };
 
         return View(viewModel);
     }
 
+    // POST do formulário do mapa
     [HttpPost]
-    //TRATAMENTO DA IMAGEM ENVIADA, COLOCANDO-A NA PASTA UPLOADS
     public async Task<IActionResult> CriarMapa(MapaFaseViewModel model)
     {
-        if (model.Mapa.Imagem != null && model.Mapa.Imagem.Length > 0)
-        {
-            var nomeArquivo = Path.GetFileName(model.Mapa.Imagem.FileName);
-            var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
-
-            Directory.CreateDirectory(Path.GetDirectoryName(caminho));
-
-            using (var stream = new FileStream(caminho, FileMode.Create))
-            {
-                await model.Mapa.Imagem.CopyToAsync(stream);
-            }
-
-            model.Mapa.ImagemUrl = "/uploads/" + nomeArquivo;
-        }
-
-        // Atualiza o mapaAtual
         mapaAtual = model.Mapa;
 
-        return View("CriarMapa", new MapaFaseViewModel
+        // Salvar imagem se houver
+        if (model.Mapa.Imagem != null)
         {
-            Mapa = mapaAtual,
-            Fase = new CriarFase()
-        });
+            var nomeArquivo = Path.GetFileName(model.Mapa.Imagem.FileName);
+            var caminho = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", nomeArquivo);
+            Directory.CreateDirectory(Path.GetDirectoryName(caminho));
+            using (var stream = new FileStream(caminho, FileMode.Create))
+                await model.Mapa.Imagem.CopyToAsync(stream);
+
+            mapaAtual.ImagemUrl = "/uploads/" + nomeArquivo;
+        }
+
+        return RedirectToAction("CriarMapa");
     }
 
+    // POST de criação ou edição de uma fase
     [HttpPost]
     public IActionResult CriarFase(MapaFaseViewModel model)
     {
         var fase = model.Fase;
 
-        var faseExistente = fasesDoMapa.FirstOrDefault(f => f.IdFase == fase.IdFase);
-
-        if (faseExistente != null)
+        if (fase.IdFase == 0)
         {
-            faseExistente.TituloFase = fase.TituloFase;
-            faseExistente.DescFase = fase.DescFase;
-            faseExistente.LinkFase = fase.LinkFase;
+            // Nova fase
+            fase.IdFase = proximoId++;
+            fasesDoMapa.Add(fase);
         }
         else
         {
-            fasesDoMapa.Add(fase);
+            // Edição de fase existente
+            var faseExistente = fasesDoMapa.FirstOrDefault(f => f.IdFase == fase.IdFase);
+            if (faseExistente != null)
+            {
+                faseExistente.TituloFase = fase.TituloFase;
+                faseExistente.DescFase = fase.DescFase;
+                faseExistente.LinkFase = fase.LinkFase;
+            }
         }
 
-        ViewBag.Fases = fasesDoMapa;
-
-        return View("CriarMapa", new MapaFaseViewModel
-        {
-            Mapa = mapaAtual,    // <- Aqui usa o mapaAtual guardado
-            Fase = fase
-        });
+        return RedirectToAction("CriarMapa");
     }
-
 
 }
 
