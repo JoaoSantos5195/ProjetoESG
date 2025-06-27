@@ -61,12 +61,12 @@
                 {
                     if (fase.IdFase % 2 == 0)
                     {
-                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px; margin-left: 200px" onclick="abrirDialogFase(@fase.IdFase)" />
+                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" id="faseImagem" style="height:80px; width:80px; margin-left: 200px" onclick="abrirDialogFase(@fase.IdFase)" />
                         <p style="margin-left: 200px">Fase @fase.IdFase</p>
                     }
                     else
                     {
-                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirDialogFase(@fase.IdFase)" />
+                        <img src="~/assets/icons/circuloFase.png" id="faseImagem" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirDialogFase(@fase.IdFase)" />
                         <p>Fase @fase.IdFase</p>
                     }
 
@@ -87,7 +87,9 @@
                             <h4>@fase.TituloFase (Fase @fase.IdFase)</h4>
                             <p>@fase.DescFase</p>
                             <p>Links: <a href="@fase.LinkFase" target="_blank">@fase.LinkFase</a></p>
+                            <button id="concluirFase" onclick="concluir()">Marcar como concluido</button>
                             <button type="button" onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
+                            <button type="button" onclick="abrirDialogFase(@fase.IdFase)">Editar fase</button>
                         }
                     </dialog>
                 }
@@ -130,13 +132,17 @@
             const formEditMapa = document.getElementById("formEditMapa");
             const formEditFase = document.getElementById("formEditFase");
             const faseIdInput = document.getElementById("faseIdInput");
+            const faseImagem = document.getElementById("faseImagem");
+            const faseDialog = document.getElementById("faseDialog");
 
+            //ABRIR POP UP EDIÇÃO DE MAPA
             function abrirEditMapa() {
                 formEditMapa.showModal();
             }
             function fecharEditMapa() {
                 formEditMapa.close();
             }
+            //ABRIR POP UP DAS FASES
             function abrirDialogFase(idFase) {
                 const dialog = document.getElementById('faseDialog_' + idFase);
                 if (dialog) dialog.showModal();
@@ -152,11 +158,7 @@
             function fecharDialogNovaFase() {
                 document.getElementById("novaFaseDialog").close();
             }
-            window.addEventListener('click', (event) => {
-                if (event.target === popUp) {
-                    popUp.close();
-                }
-            });
+            //FUNÇÃO PARA MUDAR INPUT DO CAMPO DE EDIÇÃO DO MAPA
             function mostrarCampo() {
                 const opcao = document.getElementById("opcao").value;
                 const campoEdicao = document.getElementById("campo-edicao");
@@ -172,6 +174,20 @@
                 } else {
                     inputTexto.style.display = "block";
                 }
+            }
+            //FUNÇÃO PARA EFEITO DE CONCLUSÃO DE FASE
+            function concluir() {
+                if (faseImagem.src.includes("circuloFase.png")) {
+                    faseImagem.src = "/assets/icons/circuloConcluido.png ";
+                    faseImagem.style.borderRadius = "50%";         // Deixa a imagem arredondada (círculo perfeito)
+                    faseImagem.style.boxShadow = "0 0 10px #4CAF50"; // Sombra verde suave
+                    faseImagem.style.transition = "all 0.3s ease";  // Transição suave
+                    faseImagem.style.width = "80px";
+                    faseImagem.style.height="80px";
+                }
+            formEditFase.close();            
+            faseDialog.clone();
+            fecharDialogFase();
             }
         </script>
 
