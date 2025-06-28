@@ -53,19 +53,26 @@
                 </div>
             </div>
 
-            <!-- Mapas -->
-            <div class="maps-section">
-                <h2 class="section-title">Seu mapa: Marketing digital</h2>
-                <p class="section-subtitle">
-                    A subheading for this section, as long or as short as you need
-                </p>
-                <a class="btn-create" style="text-decoration: none;" asp-area="" asp-controller="Home" asp-action="CriarMapa">Criar mapa</a>
-                <div class="map-item">
-                    <h3 class="map-title">Língua Portuguesa</h3>
-                    <p class="map-description">Description of featured product</p>
-                </div>
-            </div>
-        </div>
+<!-- Mapas -->
+<div class="maps-section">
+    @if (ViewBag.MapaViewModel?.Mapa != null && !string.IsNullOrEmpty(ViewBag.MapaViewModel.Mapa.TituloMapa))
+    {
+        <!-- Título do mapa como botão -->
+        <a href="@Url.Action("CriarMapa", "Home")" class="titulo-mapa-botao">
+            @ViewBag.MapaViewModel.Mapa.TituloMapa
+            <i class="bi bi-arrow-right"></i>
+        </a>
+        
+        <p class="section-subtitle">Clique no nome para editar seu mapa</p>
+    }
+    else
+    {
+        <h2 class="section-title">Você ainda não criou um mapa</h2>
+        <a href="@Url.Action("CriarMapa", "Home")" class="btn-acessar-mapa">
+            Criar Primeiro Mapa <i class="bi bi-plus-lg"></i>
+        </a>
+    }
+</div>
 
         <!-- Rodapé -->
         <footer>

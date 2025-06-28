@@ -46,6 +46,20 @@ public class HomeController : Controller
     //VAI PARA PERFIL
     public IActionResult Perfil()
     {
+        // Seu modelo atual (para dados do perfil)
+        var homeModel = new HomeModel();
+
+        // Modelo do mapa (se existir)
+        var mapaViewModel = new MapaFaseViewModel
+        {
+            Mapa = mapaAtual,
+            TodasFases = fasesDoMapa
+        };
+
+        // Junta os dois modelos em um ViewBag dinâmico
+        ViewBag.HomeModel = homeModel;
+        ViewBag.MapaViewModel = mapaViewModel;
+
         return View();
     }
 
@@ -160,10 +174,72 @@ public class HomeController : Controller
 
                     mapaAtual.ImagemUrl = "/uploads/" + nomeArquivo;
                 }
-                break;    
+                break;
         }
         return RedirectToAction("CriarMapa");
     }
+    [HttpPost]
+    [HttpPost]
+    public IActionResult DeletarFase(int idFase)
+    {
+        try
+        {
+            var faseParaDeletar = fasesDoMapa.FirstOrDefault(f => f.IdFase == idFase);
 
+            if (faseParaDeletar != null)
+            {
+                // 1. Remove a fase
+                fasesDoMapa.Remove(faseParaDeletar);
+
+                // 2. Reorganiza os IDs (1, 2, 3...)
+                for (int i = 0; i < fasesDoMapa.Count; i++)
+                {
+                    fasesDoMapa[i].IdFase = i + 1; // IDs começam em 1
+                }
+
+                // 3. Atualiza o próximoId para evitar conflitos
+                proximoId = fasesDoMapa.Count + 1;
+
+                TempData["Mensagem"] = "Fase deletada e IDs reorganizados!";
+            }
+            else
+            {
+                TempData["Erro"] = "Fase não encontrada.";
+            }
+
+            return RedirectToAction("CriarMapa");
+        }
+        catch (Exception ex)
+        {
+            TempData["Erro"] = "Erro ao deletar fase: " + ex.Message;
+            return RedirectToAction("CriarMapa");
+        }
+    }
+    [HttpPost]
+    public IActionResult ExcluirMapa()
+    {
+        try
+        {
+            // Limpa TODOS os dados do mapa
+            mapaAtual = new CriarMapa {
+                TituloMapa = "",
+                DescMapa = "",
+                LinkMapa = "",
+                ImagemUrl = ""
+            };
+            
+            fasesDoMapa.Clear();
+            proximoId = 1;
+
+            // Garante que a mensagem será exibida
+            TempData["MensagemSucesso"] = "Mapa excluído com sucesso!";
+            
+            return RedirectToAction("Index");
+        }
+        catch (Exception ex)
+        {
+            TempData["MensagemErro"] = "Erro ao excluir mapa: " + ex.Message;
+            return RedirectToAction("CriarMapa");
+        }
+    }
 }
-

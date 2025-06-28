@@ -90,6 +90,11 @@
                             <button id="concluirFase" onclick="concluir()">Marcar como concluido</button>
                             <button type="button" onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
                             <button type="button" onclick="abrirDialogFase(@fase.IdFase)">Editar fase</button>
+                            <!-- BOTÃO PARA DELETAR FASE -->
+                            <form action="@Url.Action("DeletarFase", "Home")" method="post" style="display: inline;">
+                                <input type="hidden" name="idFase" value="@fase.IdFase" />
+                                <button type="submit" class="btn-delete" onclick="return confirm('Tem certeza que deseja deletar esta fase?')">Deletar Fase</button>
+                            </form>
                         }
                     </dialog>
                 }
@@ -120,9 +125,35 @@
         </div>
 
         <hr>
-        <form action="@Url.Action("ExcluirMapa", "Home")" method="post">
-            <button type="submit" name="excluirMapa" id="excluirMapa">Excluir Mapa</button>
+        <!-- Substitua o botão atual por este: -->
+        <form id="formExcluirMapa" asp-action="ExcluirMapa" method="post">
+            <button type="button" onclick="confirmarExclusao()" class="btn-excluir">
+                <i class="bi bi-trash-fill"></i> Excluir Mapa Permanentemente
+            </button>
         </form>
+
+        <script>
+            function confirmarExclusao() {
+                Swal.fire({
+                    title: 'Confirmação',
+                    text: "Tem certeza que deseja excluir este mapa completamente?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sim, excluir!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Adiciona spinner de carregamento
+                        Swal.showLoading();
+                        
+                        // Submete o formulário
+                        document.getElementById('formExcluirMapa').submit();
+                    }
+                });
+            }
+        </script>
         <hr>
 
         <h2 id="comentarioTitulo" class="text-center">Comentários</h2>
