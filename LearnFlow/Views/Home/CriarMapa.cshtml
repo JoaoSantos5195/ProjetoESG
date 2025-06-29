@@ -120,9 +120,9 @@
                 <dialog id="novaFaseDialog" class="formEditFase">
                     <form action="@Url.Action("CriarFase", "Home")" method="post">
                         <input type="hidden" name="Fase.IdFase" value="0" />
-                        <input type="text" name="Fase.TituloFase" placeholder="Qual o título da fase?" /><br>
-                        <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase?"></textarea><br>
-                        <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado" /><br>
+                        <input type="text" name="Fase.TituloFase" placeholder="Qual o título da fase? O que vamos aprender nesta etapa" /><br>
+                        <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase? Fale sobre o tema de estudo"></textarea><br>
+                        <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado ou exercícios" /><br>
                         <button type="submit">Salvar</button>
                         <button type="button" onclick="fecharDialogNovaFase()">Fechar</button>
                     </form>

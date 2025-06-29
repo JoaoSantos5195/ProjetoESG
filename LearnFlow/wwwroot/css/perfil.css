@@ -317,3 +317,6 @@
 .mapa-link-card:hover .seta {
     transform: translateX(5px);
 }
+.espaco-footer {
+    height: 80px; /* ou o que for necessário para afastar do rodapé */
+}
