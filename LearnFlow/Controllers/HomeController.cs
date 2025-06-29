@@ -2,13 +2,12 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using LearnFlow.Models;
 using LearnFlow.ViewModels;
-using Microsoft.AspNetCore.Http; // Para Session
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
-using Microsoft.AspNetCore.Http.Features;
 
 namespace LearnFlow.Controllers
 {
@@ -21,18 +20,15 @@ namespace LearnFlow.Controllers
             _env = env;
         }
 
-        // INDEX: só deixa acessar se o usuário estiver logado (session "usuario" preenchida)
         public IActionResult Index()
         {
             var usuario = HttpContext.Session.GetString("usuario");
 
             if (string.IsNullOrEmpty(usuario))
             {
-                // Se não estiver logado, redireciona para a tela de login
                 return RedirectToAction("Index", "Login");
             }
 
-            // Usuário logado, mostra a home
             return View();
         }
 
@@ -52,17 +48,17 @@ namespace LearnFlow.Controllers
             return View();
         }
 
-public IActionResult Sobre()
-{
-    var usuario = HttpContext.Session.GetString("usuario");
+        public IActionResult Sobre()
+        {
+            var usuario = HttpContext.Session.GetString("usuario");
 
-    if (string.IsNullOrEmpty(usuario))
-    {
-        return RedirectToAction("Index", "Login");
-    }
+            if (string.IsNullOrEmpty(usuario))
+            {
+                return RedirectToAction("Index", "Login");
+            }
 
-    return View();
-}
+            return View();
+        }
 
         public IActionResult Perfil()
         {
@@ -70,11 +66,9 @@ public IActionResult Sobre()
 
             if (string.IsNullOrEmpty(usuario))
             {
-                // Usuário não está logado, redireciona para a página de login
                 return RedirectToAction("Index", "Login");
             }
 
-            // Usuário logado, carrega os dados para a view
             ViewBag.Mensagem = null;
 
             var homeModel = new HomeModel();
@@ -107,7 +101,6 @@ public IActionResult Sobre()
 
         private static List<CriarFase> fasesDoMapa = new();
         private static CriarMapa mapaAtual = new();
-
         private static int proximoId = 1;
 
         public IActionResult CriarMapa()
@@ -129,10 +122,16 @@ public IActionResult Sobre()
             if (model.Mapa.Imagem != null)
             {
                 var nomeArquivo = Path.GetFileName(model.Mapa.Imagem.FileName);
-                var caminho = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", nomeArquivo);
-                Directory.CreateDirectory(Path.GetDirectoryName(caminho));
-                using (var stream = new FileStream(caminho, FileMode.Create))
-                    await model.Mapa.Imagem.CopyToAsync(stream);
+                var caminho = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", nomeArquivo);
+                var dir = Path.GetDirectoryName(caminho);
+
+                if (dir != null)
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+                await using var stream = new FileStream(caminho, FileMode.Create);
+                await model.Mapa.Imagem.CopyToAsync(stream);
 
                 mapaAtual.ImagemUrl = "/uploads/" + nomeArquivo;
             }
@@ -165,9 +164,8 @@ public IActionResult Sobre()
         }
 
         [HttpPost]
-        public async Task<IActionResult> editMapa(MapaFaseViewModel model, string opcao, string novoValor, IFormFile novaImagem)
+        public async Task<IActionResult> editMapa(MapaFaseViewModel model, string opcao, string novoValor, IFormFile? novaImagem)
         {
-            var mapa = model.Mapa;
             switch (opcao)
             {
                 case "tituloMapa":
@@ -184,12 +182,15 @@ public IActionResult Sobre()
                     {
                         var nomeArquivo = Path.GetFileName(novaImagem.FileName);
                         var caminho = Path.Combine(_env.WebRootPath, "uploads", nomeArquivo);
-                        Directory.CreateDirectory(Path.GetDirectoryName(caminho));
+                        var dir = Path.GetDirectoryName(caminho);
 
-                        using (var stream = new FileStream(caminho, FileMode.Create))
+                        if (dir != null)
                         {
-                            await novaImagem.CopyToAsync(stream);
+                            Directory.CreateDirectory(dir);
                         }
+
+                        await using var stream = new FileStream(caminho, FileMode.Create);
+                        await novaImagem.CopyToAsync(stream);
 
                         mapaAtual.ImagemUrl = "/uploads/" + nomeArquivo;
                     }

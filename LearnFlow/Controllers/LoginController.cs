@@ -37,6 +37,6 @@ public class LoginController : Controller
             return new List<Usuario>();
 
         var json = System.IO.File.ReadAllText(CaminhoArquivo);
-        return JsonConvert.DeserializeObject<List<Usuario>>(json);
+        return JsonConvert.DeserializeObject<List<Usuario>>(json) ?? new List<Usuario>();
     }
 }
