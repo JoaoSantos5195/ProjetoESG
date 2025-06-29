@@ -12,51 +12,29 @@
 <body>
     <div class="login-container">
         <h2>Entre com sua conta</h2>
+
+        @if (ViewBag.Mensagem != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.Mensagem
+            </div>
+        }
+
         <form action="/login" method="post" class="form">
             <div class="form-group">
-                <label for="username">E-mail</label>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Insira seu e-mail" required>
+                <label for="email">E-mail</label>
+                <input type="text" id="email" name="email" class="form-control" placeholder="Insira seu e-mail" required>
             </div>
             <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Insira sua senha" required>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" class="form-control" placeholder="Insira sua senha" required>
             </div>
             <button id="entrar" name="entrar" type="submit" class="btn btn-primary w-100" style="margin-bottom: 10px">
                 Entrar
             </button>
         </form>
 
-        <div class="_k_QMg">
-            <button class="btn btn-light w-100" type="button">
-                <span class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="24" width="24">
-                        <path fill="#4285f4" d="M386 400c45-42 65-112 53-179H260v74h102c-4 24-18 44-38 57z"></path>
-                        <path fill="#34a853" d="M90 341a192 192 0 0 0 296 59l-62-48c-53 35-141 22-171-60z"></path>
-                        <path fill="#fbbc02" d="M153 292c-8-25-8-48 0-73l-63-49c-23 46-30 111 0 171z"></path>
-                        <path fill="#ea4335" d="M153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55z"></path>
-                    </svg>
-                </span>
-                Continuar com o Google
-            </button>
-            @* <button class="btn btn-primary w-100" type="button">
-                <span class="icon">
-                    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21.5 12.058c0-5.28-4.253-9.558-9.5-9.558s-9.5 4.279-9.5 9.558c0 4.771 3.473 8.725 8.016 9.442v-6.68H8.104v-2.762h2.412V9.952c0-2.395 1.417-3.718 3.588-3.718 1.04 0 2.126.186 2.126.186v2.352h-1.198c-1.18 0-1.548.738-1.548 1.494v1.792h2.635l-.421 2.763h-2.214V21.5c4.543-.717 8.016-4.67 8.016-9.442z" fill="currentColor"></path>
-                    </svg>
-                </span>
-                Continuar com o Facebook
-            </button> *@
-            <button class="btn btn-dark w-100" type="button">
-                <span class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                </span>
-                Continuar com o GitHub
-            </button>
-        </div>
-
-        <p id="criar">Não tem uma conta? <a href="/Home/Cadastro">Criar conta</a> </p>
+        <p id="criar">Não tem uma conta? <a href="/Home/Cadastro">Criar conta</a></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

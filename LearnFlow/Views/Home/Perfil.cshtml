@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/perfil.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <title>@ViewData["Title"]</title>
 </head>
 <body>
@@ -19,7 +20,7 @@
     <div id="alinhamento">
         <div id="alteracoes" style="display: none;">
             <!-- FotoNome -->
-            <input id="customButton" type="button" style="background-color: #3689ff; color: white; display: block; margin: auto; color: white; border: none; padding: 3px; border-radius: 5px;"" value="Alterar imagem do perfil">
+            <input id="customButton" type="button" style="background-color: #3689ff; color: white; display: block; margin: auto; color: white; border: none; padding: 3px; border-radius: 5px;" value="Alterar imagem do perfil">
             <br>
             <label style="display: block; margin: auto;">Digite seu nome</label>
             <input type="text" id="inputNome" placeholder="Digite o novo nome" style="display: block; margin: auto; width: 100%; ">
@@ -31,7 +32,7 @@
             <!-- Descrição -->
             <label>Descreva sobre você</label>
             <br>
-            <textarea id="inputDescricao" placeholder="Digite a nova descrição" style="display: block; width: 100%; margin: auto; heigth: 250px;"></textarea>
+            <textarea id="inputDescricao" placeholder="Digite a nova descrição" style="display: block; width: 100%; margin: auto; height: 250px;"></textarea>
             <br>
 
             <!-- Botão para salvar alterações -->
@@ -44,6 +45,15 @@
             <!-- Perfil -->
             <div class="profile-card">
                 <h1 id="tituloPerfil">Meu Perfil</h1>
+
+                @* Aqui exibe a mensagem caso exista *@
+                @if (ViewBag.Mensagem != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.Mensagem
+                    </div>
+                }
+
                 <p id="descricaoPerfil">Descrição</p>
 
                 <div class="profile-menu">
@@ -53,33 +63,35 @@
                 </div>
             </div>
 
-<!-- Mapas -->
-<div class="maps-section">
-    @if (ViewBag.MapaViewModel?.Mapa != null && !string.IsNullOrEmpty(ViewBag.MapaViewModel.Mapa.TituloMapa))
-    {
-        <!-- Título do mapa como botão -->
-        <a href="@Url.Action("CriarMapa", "Home")" class="titulo-mapa-botao">
-            @ViewBag.MapaViewModel.Mapa.TituloMapa
-            <i class="bi bi-arrow-right"></i>
-        </a>
-        
-        <p class="section-subtitle">Clique no nome para editar seu mapa</p>
-    }
-    else
-    {
-        <h2 class="section-title">Você ainda não criou um mapa</h2>
-        <a href="@Url.Action("CriarMapa", "Home")" class="btn-acessar-mapa">
-            Criar Primeiro Mapa <i class="bi bi-plus-lg"></i>
-        </a>
-    }
-</div>
+            <!-- Mapas -->
+            <div class="maps-section">
+                @if (ViewBag.MapaViewModel?.Mapa != null && !string.IsNullOrEmpty(ViewBag.MapaViewModel.Mapa.TituloMapa))
+                {
+                    <!-- Título do mapa como botão -->
+                    <a href="@Url.Action("CriarMapa", "Home")" class="titulo-mapa-botao">
+                        @ViewBag.MapaViewModel.Mapa.TituloMapa
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
 
-        <!-- Rodapé -->
-        <footer>
-            &copy; 2025 LearnFlow. Todos os direitos reservados.
-        </footer>
+                    <p class="section-subtitle">Clique no nome para editar seu mapa</p>
+                }
+                else
+                {
+                    <h2 class="section-title">Você ainda não criou um mapa</h2>
+                    <a href="@Url.Action("CriarMapa", "Home")" class="btn-acessar-mapa">
+                        Criar Primeiro Mapa <i class="bi bi-plus-lg"></i>
+                    </a>
+                }
+            </div>
+
+            <!-- Rodapé -->
+            <footer>
+                &copy; 2025 LearnFlow. Todos os direitos reservados.
+            </footer>
+        </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const alteracoes = document.getElementById("alteracoes");
         const pagina = document.getElementById("pagina");
@@ -124,7 +136,6 @@
         function retornar() {
             alteracoes.style.display = "none";
             pagina.style.display = "block";
-
 
             const novoNome = input.value.trim();
             if (novoNome) {

@@ -1,4 +1,4 @@
-@model CadastroModel;
+@model LearnFlow.Models.CadastroModel
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,26 +14,44 @@
     <div class="cadastro-container">
         <h2 class="text-center mb-3">Criação de conta</h2>
 
-        <form action="/Home/Cadastro" method="post">
-            <div class="form-group">
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" asp-for="Nome" class="form-control" name="nome" id="nome" placeholder="Insira seu nome de usuário" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" asp-for="Email" class="form-control" name="email" id="email" placeholder="Insira seu email" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="senha" class="form-label">Senha</label>
-                    <input type="password" asp-for="Senha" class="form-control" name="senha" id="senha" placeholder="Insira sua senha" required>
-                </div>
-
-                <input type="submit" id="entrar" value="Criar Conta">
+        @if (ViewBag.Sucesso != null)
+        {
+            <div class="alert alert-success text-center">
+                @ViewBag.Sucesso
             </div>
-        </form>
+
+            <div class="text-center mt-3">
+                <a href="/Home/Login" class="btn btn-success">Ir para o Login</a>
+            </div>
+        }
+        else
+        {
+            @if (ViewBag.Erro != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Erro</div>
+            }
+
+            <form asp-controller="Cadastro" asp-action="Cadastro" method="post">
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label asp-for="Nome" class="form-label">Nome</label>
+                        <input asp-for="Nome" class="form-control" placeholder="Insira seu nome de usuário" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Insira seu email" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Senha" class="form-label">Senha</label>
+                        <input asp-for="Senha" type="password" class="form-control" placeholder="Insira sua senha" required />
+                    </div>
+
+                    <input type="submit" value="Criar Conta" class="btn btn-primary" />
+                </div>
+            </form>
+        }
     </div>
 </body>
 </html>
