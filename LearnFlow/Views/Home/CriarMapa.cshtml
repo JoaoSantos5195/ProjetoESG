@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/mapa.css">
+        <link rel="stylesheet" href="/css/criarMapa.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
         <title>LearnFlow</title>
     </head>
@@ -16,10 +16,13 @@
     {
         <div>
             <form action="@Url.Action("CriarMapa", "Home")" method="post" enctype="multipart/form-data">
+                <label for="arquivoCapa">
+                    Selecione uma capa para o mapa de estudos
+                </label>
                 <input type="file" name="Mapa.Imagem" accept=".jpg, .png" placeholder="Insira a capa do seu mapa" required><br>
                 <input type="text" name="Mapa.TituloMapa" placeholder="Insira o Titulo do seu mapa" required><br>
-                <textarea name="Mapa.DescMapa" placeholder="Insira uma descrição sobre o seu mapa de estudos" required></textarea><br>
-                <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa"><br>
+                <textarea name="Mapa.DescMapa" placeholder="Insira uma descrição geral sobre o seu mapa de estudos" required></textarea><br>
+                <input type="text" name="Mapa.LinkMapa" placeholder="Links gerais para estudo do mapa ou exercícios"><br>
                 <button type="submit">Salvar</button>
             </form>
         </div>
@@ -56,40 +59,42 @@
         </dialog>
 
         <div class="tudo">
+            <!-- FASES -->
             <div class="fases">
                 @foreach (var fase in Model.TodasFases)
                 {
                     if (fase.IdFase % 2 == 0)
                     {
-                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" id="faseImagem" style="height:80px; width:80px; margin-left: 200px" onclick="abrirDialogFase(@fase.IdFase)" />
-                        <p style="margin-left: 200px">Fase @fase.IdFase</p>
+                        <img src="~/assets/icons/circuloFase.png" alt="CirculoFase" id="faseImagem_@fase.IdFase" style="height:80px; width:80px; margin-left: 400px" onclick="abrirDialogFase(@fase.IdFase)" />
+                        <p style="margin-left: 400px">Fase @fase.IdFase</p>
                     }
                     else
                     {
-                        <img src="~/assets/icons/circuloFase.png" id="faseImagem" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirDialogFase(@fase.IdFase)" />
+                        <img src="~/assets/icons/circuloFase.png" id="faseImagem_@fase.IdFase" alt="CirculoFase" style="height:80px; width:80px;" onclick="abrirDialogFase(@fase.IdFase)" />
                         <p>Fase @fase.IdFase</p>
                     }
-
+                    <!-- CRIAÇÃO DE FASE -->
                     <dialog id="faseDialog_@fase.IdFase" class="faseDialog">
                         @if (string.IsNullOrEmpty(fase.TituloFase) && string.IsNullOrEmpty(fase.DescFase) && string.IsNullOrEmpty(fase.LinkFase))
                         {
                             <form action="@Url.Action("CriarFase", "Home")" method="post">
                                 <input type="hidden" name="Fase.IdFase" value="@fase.IdFase" />
-                                <input type="text" name="Fase.TituloFase" placeholder="Qual o título da fase?" /><br>
-                                <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase?"></textarea><br>
-                                <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado" /><br>
+                                <input type="text" name="Fase.TituloFase" placeholder="Qual o título da fase? O que vamos aprender nesta etapa" /><br>
+                                <textarea name="Fase.DescFase" placeholder="Qual a descrição da fase? Fale sobre o tema de estudo"></textarea><br>
+                                <input type="text" name="Fase.LinkFase" placeholder="Links para estudo aprofundado ou exercícios" /><br>
                                 <button type="submit">Salvar</button>
                                 <button type="button" onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
                             </form>
                         }
                         else
                         {
+                        <!--EXIBIR FASE FORMATADA -->
                             <h4>@fase.TituloFase (Fase @fase.IdFase)</h4>
                             <p>@fase.DescFase</p>
                             <p>Links: <a href="@fase.LinkFase" target="_blank">@fase.LinkFase</a></p>
-                            <button id="concluirFase" onclick="concluir()">Marcar como concluido</button>
+                            <button type="button" onclick="concluir(@fase.IdFase)">Marcar como concluído</button>
                             <button type="button" onclick="fecharDialogFase(@fase.IdFase)">Fechar</button>
-                            <button type="button" onclick="abrirDialogFase(@fase.IdFase)">Editar fase</button>
+                            <button type="button" onclick="abrirDialogEditarFase(@fase.IdFase)">Editar fase</button>
                             <!-- BOTÃO PARA DELETAR FASE -->
                             <form action="@Url.Action("DeletarFase", "Home")" method="post" style="display: inline;">
                                 <input type="hidden" name="idFase" value="@fase.IdFase" />
@@ -97,8 +102,19 @@
                             </form>
                         }
                     </dialog>
+                    <!--EDIÇÃO DE FASE-->
+                    <dialog id="faseEditarDialog_@fase.IdFase" class="faseDialog">
+                        <form action="@Url.Action("CriarFase", "Home")" method="post">
+                            <input type="hidden" name="Fase.IdFase" value="@fase.IdFase" />
+                            <input type="text" name="Fase.TituloFase" value="@fase.TituloFase" /><br>
+                            <textarea name="Fase.DescFase">@fase.DescFase</textarea><br>
+                            <input type="text" name="Fase.LinkFase" value="@fase.LinkFase" /><br>
+                            <button type="submit">Salvar</button>
+                            <button type="button" onclick="fecharDialogEditarFase(@fase.IdFase)">Cancelar</button>
+                        </form>
+                    </dialog>
                 }
-
+                <!-- ADICIONAR NOVA FASE-->
                 <button onclick="abrirDialogNovaFase()">Adicionar Nova Fase</button>
 
                 <dialog id="novaFaseDialog" class="formEditFase">
@@ -112,9 +128,8 @@
                     </form>
                 </dialog>
             </div>
-    
-
-            <div class="descricaoFase">
+            <!-- DETALHES DO MAPA -->
+            <div class="descricaoMapa">
                 <h3>Sobre o roadmap</h3>
                 <p class="text-justify">@Model.Mapa.DescMapa</p>
                 <br>
@@ -125,71 +140,44 @@
         </div>
 
         <hr>
-        <!-- Substitua o botão atual por este: -->
-        <form id="formExcluirMapa" asp-action="ExcluirMapa" method="post">
-            <button type="button" onclick="confirmarExclusao()" class="btn-excluir">
-                <i class="bi bi-trash-fill"></i> Excluir Mapa Permanentemente
-            </button>
+        <!-- EXCLUSÃO DO MAPA -->
+        <form id="formExcluirMapa" action="@Url.Action("ExcluirMapa", "Home")" method="post">
+            <button type="button" onclick="confirmarExclusao()">Excluir Mapa</button>
         </form>
 
-        <script>
-            function confirmarExclusao() {
-                Swal.fire({
-                    title: 'Confirmação',
-                    text: "Tem certeza que deseja excluir este mapa completamente?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Sim, excluir!',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Adiciona spinner de carregamento
-                        Swal.showLoading();
-                        
-                        // Submete o formulário
-                        document.getElementById('formExcluirMapa').submit();
-                    }
-                });
-            }
-        </script>
         <hr>
 
         <h2 id="comentarioTitulo" class="text-center">Comentários</h2>
     }
 
-        <script>
-            const formEditMapa = document.getElementById("formEditMapa");
-            const formEditFase = document.getElementById("formEditFase");
-            const faseIdInput = document.getElementById("faseIdInput");
-            const faseImagem = document.getElementById("faseImagem");
-            const faseDialog = document.getElementById("faseDialog");
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            //ABRIR POP UP EDIÇÃO DE MAPA
+        <script>
             function abrirEditMapa() {
-                formEditMapa.showModal();
+                document.getElementById("formEditMapa").showModal();
             }
             function fecharEditMapa() {
-                formEditMapa.close();
+                document.getElementById("formEditMapa").close();
             }
-            //ABRIR POP UP DAS FASES
             function abrirDialogFase(idFase) {
-                const dialog = document.getElementById('faseDialog_' + idFase);
-                if (dialog) dialog.showModal();
+                document.getElementById('faseDialog_' + idFase).showModal();
             }
             function fecharDialogFase(idFase) {
-                const dialog = document.getElementById('faseDialog_' + idFase);
-                if (dialog) dialog.close();
+                document.getElementById('faseDialog_' + idFase).close();
             }
-
             function abrirDialogNovaFase() {
                 document.getElementById("novaFaseDialog").showModal();
             }
             function fecharDialogNovaFase() {
                 document.getElementById("novaFaseDialog").close();
             }
-            //FUNÇÃO PARA MUDAR INPUT DO CAMPO DE EDIÇÃO DO MAPA
+            function abrirDialogEditarFase(idFase) {
+                document.getElementById('faseEditarDialog_' + idFase).showModal();
+            }
+            function fecharDialogEditarFase(idFase) {
+                document.getElementById('faseEditarDialog_' + idFase).close();
+            }
+            //ALTERAÇÃO DE FORM PARA EDIÇÃO DE MAPA
             function mostrarCampo() {
                 const opcao = document.getElementById("opcao").value;
                 const campoEdicao = document.getElementById("campo-edicao");
@@ -206,19 +194,37 @@
                     inputTexto.style.display = "block";
                 }
             }
-            //FUNÇÃO PARA EFEITO DE CONCLUSÃO DE FASE
-            function concluir() {
-                if (faseImagem.src.includes("circuloFase.png")) {
-                    faseImagem.src = "/assets/icons/circuloConcluido.png ";
-                    faseImagem.style.borderRadius = "50%";         // Deixa a imagem arredondada (círculo perfeito)
-                    faseImagem.style.boxShadow = "0 0 10px #4CAF50"; // Sombra verde suave
-                    faseImagem.style.transition = "all 0.3s ease";  // Transição suave
-                    faseImagem.style.width = "80px";
-                    faseImagem.style.height="80px";
+
+            //CONCLUSÃO DE FASE
+            function concluir(idFase) {
+                const imagem = document.getElementById("faseImagem_" + idFase);
+                if (imagem && imagem.src.includes("circuloFase.png")) {
+                    imagem.src = "/assets/icons/circuloConcluido.png";
+                    imagem.style.borderRadius = "50%";
+                    imagem.style.boxShadow = "0 0 10px #4CAF50";
+                    imagem.style.transition = "all 0.3s ease";
+                    imagem.style.width = "80px";
+                    imagem.style.height = "80px";
                 }
-            formEditFase.close();            
-            faseDialog.clone();
-            fecharDialogFase();
+                fecharDialogFase(idFase);
+            }
+
+            // Exclusão do mapa com ALERT
+            function confirmarExclusao() {
+                Swal.fire({
+                    title: 'Tem certeza?',
+                    text: "Você não poderá reverter isso!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sim, excluir!',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('formExcluirMapa').submit();
+                    }
+                });
             }
         </script>
 

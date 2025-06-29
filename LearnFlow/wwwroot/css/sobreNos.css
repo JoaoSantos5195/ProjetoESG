@@ -1,0 +1,40 @@
+.sobre-nos-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 900px;
+    margin: 40px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.titulo-sobre {
+    color: #3689ff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.descricao-sobre {
+    color: #333;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.lista-integrantes {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+}
+
+.lista-integrantes li {
+    font-size: 1.1rem;
+    color: #444;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.lista-integrantes li:last-child {
+    border-bottom: none;
+}

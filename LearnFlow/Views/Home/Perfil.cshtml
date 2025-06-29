@@ -68,18 +68,20 @@
                 @if (ViewBag.MapaViewModel?.Mapa != null && !string.IsNullOrEmpty(ViewBag.MapaViewModel.Mapa.TituloMapa))
                 {
                     <!-- Título do mapa como botão -->
-                    <a href="@Url.Action("CriarMapa", "Home")" class="titulo-mapa-botao">
-                        @ViewBag.MapaViewModel.Mapa.TituloMapa
-                        <i class="bi bi-arrow-right"></i>
+                    <h3>Mapa criado:</h3>
+                    <a href="@Url.Action("CriarMapa", "Home")" class="mapa-link-card" style="margin-bottom: 70px;">
+                        <div class="mapa-info">
+                            <h3 class="mapa-titulo">@ViewBag.MapaViewModel.Mapa.TituloMapa</h3>
+                            <p class="mapa-descricao">Clique para editar seu mapa de estudos</p>
+                        </div>
+                        <i class="bi bi-arrow-right-circle-fill seta"></i>
                     </a>
-
-                    <p class="section-subtitle">Clique no nome para editar seu mapa</p>
                 }
                 else
                 {
                     <h2 class="section-title">Você ainda não criou um mapa</h2>
-                    <a href="@Url.Action("CriarMapa", "Home")" class="btn-acessar-mapa">
-                        Criar Primeiro Mapa <i class="bi bi-plus-lg"></i>
+                    <a href="@Url.Action("CriarMapa", "Home")" class="btn-acessar-mapa"style="margin-bottom: 70px;">
+                        Criar Primeiro Mapa <i class="bi bi-plus-lg"style="margin-bottom: 70px;"></i>
                     </a>
                 }
             </div>

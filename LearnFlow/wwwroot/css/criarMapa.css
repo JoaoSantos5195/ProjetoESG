@@ -1,0 +1,165 @@
+#imgCapa{
+    display: flex;
+    justify-content: center;
+}
+#tituloMapa{
+    padding: 5%;
+}
+
+.tudo {
+    display: flex;
+    gap: 20px; /* Espaço entre as colunas */
+    align-items: flex-start;
+}
+
+.fases {
+    flex: 2; /* Ocupa mais espaço */
+    background-color: #f0f0f0; /* Só para visualização, pode tirar */
+    padding: 20px;
+}
+
+.descricaoMapa {
+    flex: 1; /* Ocupa menos espaço */
+    background-color: #f0f0f0; /* Só para visualização, pode tirar */
+    padding: 20px;
+}
+
+.faseImagem{
+    cursor: pointer;
+}
+
+dialog{
+    width: 60%;
+    height: 70%;
+    border-radius: 40px;
+    padding: 40px;
+}
+
+/* Estilo do botão Fechar */
+dialog button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+dialog #concluirFase {
+    background-color: #00ff66;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* FORMULÁRIO INICIAL DE CRIAÇÃO DE MAPA */
+form[action*="CriarMapa"] {
+    background-color: #ffffff;
+    border: 2px solid #ddd;
+    padding: 30px;
+    border-radius: 20px;
+    width: 60%;
+    margin: 40px auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* INPUTS E TEXTAREAS */
+form input[type="text"],
+form input[type="file"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* BOTÕES GERAIS DO FORMULÁRIO */
+form button[type="submit"],
+form button[type="button"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover,
+form button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+/* BOTÕES ESPECIAIS EM DIALOGS (já existem, mas reforçando) */
+dialog button {
+    margin-right: 10px;
+}
+
+dialog #concluirFase {
+    background-color: #28a745 !important;
+}
+
+/* FORMULÁRIO DENTRO DOS DIALOGS */
+dialog form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* TÍTULOS DENTRO DO DIALOG */
+dialog h4 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+/* LINKS EM DIALOG */
+dialog a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+dialog a:hover {
+    text-decoration: underline;
+}
+
+/* SELECT DE EDIÇÃO DO MAPA */
+#opcao {
+    background-color: #f9f9f9;
+}
+
+/* CAMPO DE EDIÇÃO DO MAPA */
+#campo-edicao label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* BOTÃO ADICIONAR NOVA FASE */
+.fases > button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #00b894;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.fases > button:hover {
+    background-color: #019875;
+}

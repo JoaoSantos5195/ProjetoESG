@@ -2,39 +2,70 @@
 <link rel="stylesheet" href="/css/mapa.css">
 
 <!-- CAPA DO MAPA -->
-<img class="imgCapa" src="~/assets/icons/portugues.png" alt="Capa do mapa" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;">
+<img class="imgCapa" src="~/assets/icons/portCapa.jpg" alt="Capa do mapa" style="height:420px; width:1080px; border-radius: 60px; margin-top:30px;">
 <h1 id="tituloMapa" class="text-center">Língua portuguesa</h1>
 
 <!-- CAMINHO DAS FASES -->
 <div class="tudo">
     <div class="fases">
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;" id="faseImagem" style="cursor: pointer;">
-        <p id="faseTexto">1º Fase</p>
+        <!-- FASE 1 -->
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px; cursor: pointer;" id="faseImagem1">
+        <p id="faseTexto1">1º Fase</p>
 
-        <dialog class="faseMapa" id="faseMapa">
+        <dialog class="faseMapa" id="faseMapa1">
             <h4 class="text-center">Fundamento da língua</h4>
-            <p class="text-justify">Antes de mergulhar nos conteúdos mais complexos, é essencial dominar a base da nossa língua. Nesta fase, você verá como o português é estruturado, desde o alfabeto até a formação das palavras. São os blocos que sustentam toda a linguagem.</p>
+            <p class="text-justify">Antes de mergulhar nos conteúdos mais complexos, é essencial dominar a base da nossa língua...</p>
             <hr>
-            <h4>links</h4>
+            <h4>Links</h4>
             <ul>
                 <li>Ortografia e fonética básica</li>
-                <li> Estrutura e formação de palavras</li>
+                <li>Estrutura e formação de palavras</li>
                 <li>Classes gramaticais (substantivo, verbo, adjetivo etc.)</li>
             </ul>
-            <button id="concluirFase" onclick="concluir()">Marcar como concluido</button>
-            <button id="fecharDialog">Fechar</button>
-
+            <button onclick="concluir(1)">Marcar como concluído</button>
+            <button onclick="fecharDialog(1)">Fechar</button>
         </dialog>
 
+        <!-- FASE 2 -->
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px; margin-left: 400px; cursor: pointer;" id="faseImagem2">
+        <p id="faseTexto2" style="margin-left: 400px;">2º Fase</p>
 
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
-        <p>2º Fase</p>
-        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px;">
-        <p>3º Fase</p>        
+        <dialog class="faseMapa" id="faseMapa2">
+            <h4 class="text-center">Compreensão e Interpretação</h4>
+            <p class="text-justify">Nesta fase, o foco é entender o que lemos. Você vai desenvolver estratégias para interpretar textos, reconhecer ideias principais e inferir sentidos.</p>
+            <hr>
+            <h4>Links</h4>
+            <ul>
+                <li>Leitura crítica de textos</li>
+                <li>Estrutura textual (introdução, desenvolvimento e conclusão)</li>
+                <li>Figuras de linguagem e intenção comunicativa</li>
+            </ul>
+            <button onclick="concluir(2)">Marcar como concluído</button>
+            <button onclick="fecharDialog(2)">Fechar</button>
+        </dialog>
+
+        <!-- FASE 3 -->
+        <img src="~/assets/icons/circuloFase.png" alt="" style="height:80px; width:80px; cursor: pointer;" id="faseImagem3">
+        <p id="faseTexto3">3º Fase</p>
+
+        <dialog class="faseMapa" id="faseMapa3">
+            <h4 class="text-center">Produção de Texto</h4>
+            <p class="text-justify">Agora que você já entende bem a língua e sabe interpretar textos, é hora de produzir! Aprenda a organizar suas ideias e escrever com clareza e coerência.</p>
+            <hr>
+            <h4>Links</h4>
+            <ul>
+                <li>Coesão e coerência textual</li>
+                <li>Redação argumentativa</li>
+                <li>Revisão gramatical e ortográfica</li>
+            </ul>
+            <button onclick="concluir(3)">Marcar como concluído</button>
+            <button onclick="fecharDialog(3)">Fechar</button>
+        </dialog>
     </div>
-    <div class="descricaoFase">
+
+    <div class="descricaoMapa">
         <h3>Sobre o roadmap</h3>
-        <p>Dominar a Língua Portuguesa vai muito além de escrever corretamente: é entender a estrutura da comunicação, interpretar o mundo ao nosso redor e se expressar com clareza e precisão. Este roadmap foi pensado para guiar você por uma jornada prática, com foco na leitura, escrita e análise crítica. Ideal para estudantes, concurseiros ou qualquer pessoa que deseje aprimorar seu domínio do idioma de forma leve e eficiente.</p>
+        <p>Dominar a Língua Portuguesa vai muito além de escrever corretamente...</p>
         <br>
         <h3>Links</h3>
         <ul>
@@ -44,52 +75,31 @@
 </div>
 
 <hr>
-
 <h2 id="comentarioTitulo" class="text-center">Comentários</h2>
-    
 
 <script>
-    // Referências dos elementos
-    const concluirFase = document.getElementById("concluirFase");
-    const faseImagem = document.getElementById("faseImagem");
-    const faseTexto = document.getElementById("faseTexto");
-    const faseMapa = document.getElementById("faseMapa");
-    const fecharDialog = document.getElementById("fecharDialog");
-    const idFase = document.getElementById("idFase");
-
-
-    // Função para abrir o popup
-    function abrirDialog() {
-        faseMapa.showModal();
+    // Abertura dos dialogs
+    for (let i = 1; i <= 3; i++) {
+        document.getElementById(`faseImagem${i}`).addEventListener("click", () => abrirDialog(i));
+        document.getElementById(`faseTexto${i}`).addEventListener("click", () => abrirDialog(i));
     }
 
-    // Função para fechar o dialog
-    function fecharPopup() {
-        faseMapa.close(); 
+    function abrirDialog(id) {
+        document.getElementById(`faseMapa${id}`).showModal();
     }
-    
-    window.addEventListener('click', (event) => {
-    if (event.target === popUp) {
-        popUp.close();
-    }
-    });
 
-    function concluir() {
-        if (faseImagem.src.includes("circuloFase.png")) {
-            faseImagem.src = "/assets/icons/circuloConcluido.png ";
-            faseImagem.style.borderRadius = "50%";         // Deixa a imagem arredondada (círculo perfeito)
-            faseImagem.style.boxShadow = "0 0 10px #4CAF50"; // Sombra verde suave
-            faseImagem.style.transition = "all 0.3s ease";  // Transição suave
-            faseImagem.style.width = "80px";
-            faseImagem.style.height="80px";
+    function fecharDialog(id) {
+        document.getElementById(`faseMapa${id}`).close();
+    }
+
+    function concluir(id) {
+        const imagem = document.getElementById(`faseImagem${id}`);
+        if (imagem && imagem.src.includes("circuloFase.png")) {
+            imagem.src = "/assets/icons/circuloConcluido.png";
+            imagem.style.borderRadius = "50%";
+            imagem.style.boxShadow = "0 0 10px #4CAF50";
+            imagem.style.transition = "all 0.3s ease";
         }
-        faseMapa.close(); 
+        fecharDialog(id);
     }
-
-
-    // Adicionando os eventos de clique
-    faseImagem.addEventListener("click", abrirDialog); // Clique na imagem abre o dialog
-    faseTexto.addEventListener("click", abrirDialog); // Clique no texto "Fase 1" abre o dialog
-    fecharDialog.addEventListener("click", fecharPopup); // Botão de fechar dentro do dialog
-    concluirFase.addEventListener("click", concluir);
 </script>

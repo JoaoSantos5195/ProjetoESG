@@ -18,7 +18,7 @@
     padding: 20px;
 }
 
-.descricaoFase {
+.descricaoMapa {
     flex: 1; /* Ocupa menos espaço */
     background-color: #f0f0f0; /* Só para visualização, pode tirar */
     padding: 20px;
