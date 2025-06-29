@@ -1,7 +1,8 @@
-namespace LearnFlow.Models;
-
-public class HomeModel
+namespace LearnFlow.Models
 {
-    public string Nome { get; set; }
-    public string Email { get; set; }
+    public class HomeModel
+    {
+        public string Nome { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
 }
