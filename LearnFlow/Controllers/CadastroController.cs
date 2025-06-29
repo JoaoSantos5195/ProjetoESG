@@ -19,7 +19,6 @@ namespace LearnFlow.Controllers
         [HttpPost]
         public IActionResult Cadastro(CadastroModel model)
         {
-            // Validação do email
             if (string.IsNullOrEmpty(model.Email) || !model.Email.Contains("@"))
             {
                 ViewBag.Erro = "Email inválido, deve conter '@'.";
@@ -28,7 +27,6 @@ namespace LearnFlow.Controllers
 
             List<CadastroModel> usuarios;
 
-            // Lê usuários existentes
             if (System.IO.File.Exists(caminhoArquivo))
             {
                 var json = System.IO.File.ReadAllText(caminhoArquivo);
@@ -41,10 +39,8 @@ namespace LearnFlow.Controllers
 
             usuarios.Add(model);
 
-            // Cria a pasta App_Data se não existir
             Directory.CreateDirectory(Path.GetDirectoryName(caminhoArquivo)!);
 
-            // Salva o JSON atualizado
             var jsonAtualizado = JsonConvert.SerializeObject(usuarios, Formatting.Indented);
             System.IO.File.WriteAllText(caminhoArquivo, jsonAtualizado);
 
